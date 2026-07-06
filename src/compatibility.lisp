@@ -226,6 +226,14 @@
 
 
 ;;
+;; name->char, char->name
+
+(aliases (name->char . name-char)
+	 (char->name . char-name))
+
+
+
+;;
 ;; alist->hash-table, hash-table->alist
 
 
@@ -245,6 +253,7 @@
   (loop :for key :being :the :hash-key :of hash-table
 	  :using (hash-value val)
 	:collect (cons key val)))
+
 
 
 

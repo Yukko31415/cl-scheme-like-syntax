@@ -89,6 +89,7 @@
 	   #:call-with-values
 	   #:char->code
 	   #:char->integer
+	   #:char->name
 	   #:code->char
 	   #:hash-table->alist
 	   #:integer->char
@@ -96,6 +97,7 @@
 	   #:let-values
 	   #:list->string
 	   #:list->values
+	   #:name->char
 	   #:number->string
 	   #:prog1-with-values
 	   #:setq-with-values!
