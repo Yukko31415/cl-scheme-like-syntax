@@ -177,7 +177,7 @@
 	   #:ccase #:cdaaar #:cdaadr #:cdaar #:cdadar #:cdaddr #:cdadr #:cdar #:cddaar
 	   #:cddadr #:cddar #:cdddar #:cddddr #:cdddr #:cddr #:cdr #:ceiling #:cell-error
 	   #:cell-error-name #:cerror #:change-class #:char #:char-code-limit
-	   #:char-downcase #:char-int #:char-name #:char-upcase #:character #:check-type
+	   #:char-downcase #:char-int #:char-upcase #:character #:check-type
 	   #:cis #:class #:class-name #:class-of #:clear-input #:clear-output #:close
 	   #:coerce #:compilation-speed #:compile #:compile-file
 	   #:compile-file-pathname #:compiled-function #:compiler-macro
@@ -263,8 +263,7 @@
 	   #:most-positive-single-float #:muffle-warning
 
 	   #:multiple-values-limit)
-  (:export #:name-char #:namestring
-	   #:next-method-p #:nil #:ninth #:no-applicable-method #:no-next-method #:not
+  (:export #:namestring #:next-method-p #:nil #:ninth #:no-applicable-method #:no-next-method #:not
 	   #:notany #:notevery #:notinline
 	   #:nth-value #:number #:numerator)
   (:export #:open #:optimize #:or #:otherwise #:output-stream-p)
