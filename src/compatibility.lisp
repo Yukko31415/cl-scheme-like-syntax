@@ -113,6 +113,7 @@
   (declare (stringable stringable))
   (cl:string stringable))
 
+(set@ (documentation 'string* 'function) (documentation 'cl:string 'function))
 
 (set@ (find-class 'string) (find-class 'cl:string))
 
