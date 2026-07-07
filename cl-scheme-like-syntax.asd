@@ -11,10 +11,11 @@
   :version     "0.1.0"
   :depends-on  ("trivial-indent")
   :serial t
-  :components ((:file "src/package")
-	       (:file "src/internal")
-	       (:file "src/predicates")
-	       (:file "src/places")
-	       (:file "src/bangs")
-	       (:file "src/compatibility")
-	       (:file "src/srfis")))
+  :components ((:module "src"
+		:components ((:file "package")
+			     (:file "internal")
+			     (:file "predicates")
+			     (:file "places")
+			     (:file "bangs")
+			     (:file "compatibility")
+			     (:file "srfis")))))
