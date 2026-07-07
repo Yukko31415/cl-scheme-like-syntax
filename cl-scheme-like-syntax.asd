@@ -2,7 +2,7 @@
 ;;;
 ;;; SPDX-License-Identifier: MIT
 ;;;
-;;; Copyright (C) 2026 Your Name
+;;; Copyright (C) 2026 Yukko
 
 (asdf:defsystem #:cl-scheme-like-syntax
   :description "A basic application."
