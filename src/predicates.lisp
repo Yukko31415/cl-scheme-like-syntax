@@ -48,7 +48,9 @@
 	 (end?    . endp)
 	 (tail?   . tailp)
 	 (subset? . subsetp)
-	 (null?   . null)
+	 ;; null?は空集合を検査するための述語なので、nil?とはしない。
+	 ;; 実際にnilかどうか判定したい場合はnotを使う。
+	 (null?   . null) 
 	 (atom?   . atom))
 
 
