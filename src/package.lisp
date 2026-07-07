@@ -91,11 +91,13 @@
   (:shadow #:string)
   (:export #:alist->hash-table
 	   #:array-flat-ref
+	   #:array-ref
 	   #:bind-with-values
 	   #:call-with-values
 	   #:char->code
 	   #:char->integer
 	   #:char->name
+	   #:char-encode
 	   #:code->char
 	   #:hash-table->alist
 	   #:integer->char
@@ -103,6 +105,9 @@
 	   #:let-values
 	   #:list->string
 	   #:list->values
+	   #:list->vector
+	   #:list-ref
+	   #:list-tail
 	   #:name->char
 	   #:number->string
 	   #:prog1-with-values

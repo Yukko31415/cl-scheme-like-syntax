@@ -219,11 +219,12 @@
 
 
 ;;
-;; char->code, code->char
+;; char->code, code->char, char-encode
 
 
-(aliases (char->code . char-code)
-	 (code->char . code-char))
+(aliases (char->code  . char-code)
+	 (code->char  . code-char)
+	 (char-encode . char-int))
 
 
 
