@@ -39,15 +39,15 @@
 
 
 (defun var-slot? (object)
-  (and (symbol? object) (string=? object '<>)))
+  (and (symbol? object) (symbol=? object '<>)))
 
 (defun rest-slot? (object)
-  (and (symbol? object) (string=? object '<...>)))
+  (and (symbol? object) (symbol=? object '<...>)))
 
 (defun slot? (object)
   (and (symbol? object)
-       (or (string=? object '<>)
-	   (string=? object '<...>))))
+       (or (symbol=? object '<>)
+	   (symbol=? object '<...>))))
 
 
 
@@ -57,14 +57,14 @@
 	:while sym
 	
 	:if (var-slot? sym)
-	  :do (setf sym (gensym "SLOT"))
+	  :do (set@ sym (gensym "SLOT"))
 	  :and :collect sym :into lambda-list
 
 	:else
 	  :if (and (null list) (rest-slot? sym))
-	    :do (setf sym (gensym "REST-SLOT"))
+	    :do (set@ sym (gensym "REST-SLOT"))
 	    :and :append `(&rest ,sym) :into lambda-list
-	    :and :do (setf apply? t) :end
+	    :and :do (set@ apply? t) :end
 	:end
 	
 	:collect sym :into arg-list

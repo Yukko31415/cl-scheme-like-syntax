@@ -107,58 +107,204 @@
 ;; Strings Dictionary
 
 
-(aliases (simple-string? . simple-string-p)
-	 (string=?       . string=)
-	 (string-equal?  . string-equal)
-	 (string?        . stringp))
-
+(alias string? stringp)
 
 
 (with-inline
 
+ (defun string=? (string1 string2 &key (start1 0) end1 (start2) end2)
+   "string=? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (declare (string string1 string2))
+   (string= string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2))
+
+ (defun string-equal? (string1 string2 &key (start1 0) end1 (start2) end2)
+   "string-equal? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (declare (string string1 string2))
+   (string-equal string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2))
+ 
+
  (defun string/=? (string1 string2 &key (start1 0) end1 (start2 0) end2)
    "string/=? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (declare (string string1 string2))
    (when (string/= string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
 
  (defun string-not-equal? (string1 string2 &key (start1 0) end1 (start2 0) end2)
    "string-not-equal? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (declare (string string1 string2))
    (when (string-not-equal string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
 
 
  (defun string<? (string1 string2 &key (start1 0) end1 (start2 0) end2)
    "string<? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (declare (string string1 string2))
    (when (string< string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
 
  (defun string-less? (string1 string2 &key (start1 0) end1 (start2 0) end2)
    "string-less? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (declare (string string1 string2))
    (when (string-lessp string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
 
 
  (defun string>? (string1 string2 &key (start1 0) end1 (start2 0) end2)
    "string>? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (declare (string string1 string2))
    (when (string> string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
 
  (defun string-greater? (string1 string2 &key (start1 0) end1 (start2 0) end2)
    "string-grater? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (declare (string string1 string2))
    (when (string-greaterp string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
 
 
  (defun string<=? (string1 string2 &key (start1 0) end1 (start2 0) end2)
    "string<=? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (declare (string string1 string2))
    (when (string<= string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
 
  (defun string-not-greater? (string1 string2 &key (start1 0) end1 (start2 0) end2)
    "string-not-grater? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (declare (string string1 string2))
    (when (string-not-greaterp string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
 
 
  (defun string>=? (string1 string2 &key (start1 0) end1 (start2 0) end2)
    "string>=? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (declare (string string1 string2))
    (when (string>= string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
 
  (defun string-not-less? (string1 string2 &key (start1 0) end1 (start2 0) end2)
    "string-not-less? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (declare (string string1 string2))
    (when (string-not-lessp string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t)))
+
+
+(with-inline
+
+ (defun symbol=? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol=? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (string= symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2))
+
+ (defun symbol-equal? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol-epual symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (string-equal symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2))
+
+
+ (defun symbol/=? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol/=? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string/= symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun symbol-not-equal? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol-not-epual symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string-not-equal symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+
+ (defun symbol<? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol<? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string< symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun symbol-less? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol-less? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string-lessp symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+
+ (defun symbol>? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol>? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string> symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun symbol-greater? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol-greater? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string-greaterp symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+
+ (defun symbol<=? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol<=?  symbol1  symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string<= symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun symbol-not-greater? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol-not-grater?  symbol1  symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string-not-greaterp symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+
+ (defun symbol>=? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol>=?  symbol1  symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string>= symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun symbol-not-less? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol-not-less?  symbol1  symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string-not-lessp symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t)))
+
+
+(with-inline
+
+ (defun string*=? (string1 string2 &key (start1 0) end1 (start2) end2)
+   "string*=? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (string= string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2))
+
+ (defun string*-equal? (string1 string2 &key (start1 0) end1 (start2) end2)
+   "string*-equal? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (string-equal string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2))
+
+
+ (defun string*/=? (string1 string2 &key (start1 0) end1 (start2 0) end2)
+   "string*/=? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (when (string/= string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun string*-not-equal? (string1 string2 &key (start1 0) end1 (start2 0) end2)
+   "string*-not-equal? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (when (string-not-equal string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+
+ (defun string*<? (string1 string2 &key (start1 0) end1 (start2 0) end2)
+   "string*<? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (when (string< string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun string*-less? (string1 string2 &key (start1 0) end1 (start2 0) end2)
+   "string-*less? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (when (string-lessp string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+
+ (defun string*>? (string1 string2 &key (start1 0) end1 (start2 0) end2)
+   "string*>? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (when (string> string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun string*-greater? (string1 string2 &key (start1 0) end1 (start2 0) end2)
+   "string-grater? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (when (string-greaterp string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+
+ (defun string*<=? (string1 string2 &key (start1 0) end1 (start2 0) end2)
+   "string*<=? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (when (string<= string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun string*-not-greater? (string1 string2 &key (start1 0) end1 (start2 0) end2)
+   "string*-not-grater? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (when (string-not-greaterp string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+
+ (defun string*>=? (string1 string2 &key (start1 0) end1 (start2 0) end2)
+   "string*>=? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (when (string>= string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun string*-not-less? (string1 string2 &key (start1 0) end1 (start2 0) end2)
+   "string*-not-less? string1 string2 &key start1 end1 start2 end2 => boolean"
+   (when (string-not-lessp string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t)))
+
+
+
+
+
 
 
 

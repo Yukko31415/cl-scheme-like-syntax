@@ -32,6 +32,12 @@
 	   #:string? #:string/=? #:string-not-equal? #:string<?
 	   #:string-less? #:string>? #:string-greater?
 	   #:string<=? #:string-not-greater? #:string>=? #:string-not-less?)
+  (:export #:symbol=? #:symbol-equal? #:symbol/=? #:symbol-not-equal? #:symbol<?
+	   #:symbol-less? #:symbol>? #:symbol-greater? #:symbol<=? #:symbol-not-greater?
+	   #:symbol>=? #:symbol-not-less?)
+  (:export #:string*=? #:string*-equal? #:string*/=? #:string*-not-equal?
+	   #:string*<? #:string*-less? #:string*>? #:string*-greater?
+	   #:string*<=? #:string*-not-greater? #:string*>=? #:string*-not-less?)
   (:export #:symbol? #:keyword? #:bound?)
   (:export #:package?)
   (:export #:pathname? #:wild-pathname? #:pathname-match?)
@@ -102,6 +108,7 @@
 	   #:prog1-with-values
 	   #:setq-with-values!
 	   #:string
+	   #:string*
 	   #:string->list
 	   #:string->number
 	   #:string->symbol
@@ -309,7 +316,7 @@
 	   #:storage-condition #:store-value #:stream #:stream-element-type
 	   #:stream-error #:stream-error-stream #:stream-external-format
 
-	   #:string-capitalize #:string-downcase #:string-left-trim
+	   #:string #:string-capitalize #:string-downcase #:string-left-trim
 	   #:string-right-trim #:string-stream #:string-trim #:string-upcase
 
 	   #:structure #:structure-class #:structure-object #:style-warning

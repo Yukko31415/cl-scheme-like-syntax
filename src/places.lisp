@@ -40,7 +40,7 @@
 ;; defun (set@)
 
 (defmacro defun (name lambda-list &body body)
-  (when (and (list? name) (string=? 'set@ (car name)))
+  (when (and (list? name) (symbol=? 'set@ (car name)))
     (set@ name (cons 'setf (cdr name))))
   `(cl:defun ,name ,lambda-list ,@body))
 
@@ -52,7 +52,7 @@
 ;; defmethod (set@)
 
 (defmacro defmethod (name &rest args)
-  (when (and (list? name) (string=? 'set@ (car name)))
+  (when (and (list? name) (symbol=? 'set@ (car name)))
     (set@ name (cons 'setf (cdr name))))
   `(cl:defmethod ,name ,@args))
 
