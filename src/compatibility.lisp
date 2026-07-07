@@ -36,7 +36,7 @@
   (apply #'aref array subscripts))
 
 (defun (set@ array-ref) (object array &rest subscripts)
-  (declare (simple-array array))
+  (declare (array array))
   (set@ (apply #'aref array subscripts) object))
 
 
