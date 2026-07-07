@@ -288,7 +288,7 @@
 
 (defun %let-values (bindings body &optional vars args)
   (if (null? bindings)
-      `(apply #'(lambda ,vars ,@body) ',args)
+      `(funcall #'(lambda ,vars ,@body) ,@args)
       (destructuring-bind (formal init) (car bindings)
 	(if (symbol? formal)
 	    (let ((sym (gensym (symbol->string formal))))
