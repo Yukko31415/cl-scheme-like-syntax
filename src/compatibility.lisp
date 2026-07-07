@@ -4,9 +4,9 @@
 
 
 
-;; -------------
-;;;; reference
-;; -------------
+;; --------------
+;;;; references
+;; --------------
 
 
 
@@ -93,22 +93,27 @@
 
 
 
-;; --------------
-;;;; conversion
-;; --------------
+;; ---------------
+;;;; conversions
+;; ---------------
 
 
 ;;
-;; string
+;; string, string*
 
 
 (defun string (&rest char)
   "string &rest char => string"
   (the simple-string (list->string char)))
 
-(deftype string (&optional size)
-  `(or (array character (,size))
-       (base-string ,size)))
+(defun string* (stringable)
+  (cl:string stringable))
+
+(deftype stringable ()
+  `(or string symbol character))
+
+
+
 
 ;; 
 ;; char->integer, integer-char
