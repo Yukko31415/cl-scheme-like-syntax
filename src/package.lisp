@@ -124,7 +124,9 @@
 
 (uiop:define-package #:cl-scheme-like-syntax/srfis
   (:mix #:cl-scheme-like-syntax/compatibility
+	#:cl-scheme-like-syntax/places
 	#:cl-scheme-like-syntax/predicates
+	#:cl-scheme-like-syntax/bangs
 	#:trivial-indent
 	#:cl)
   (:export #:cut #:cute #:string-compare))
