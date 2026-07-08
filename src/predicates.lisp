@@ -414,3 +414,26 @@
 	 (equalp?            . equalp))
 
 
+;;
+;; defstruct
+
+(defmacro defstruct (name-and-options &rest slot-descriptions)
+  (cond ((or (not (list? name-and-options)))
+	 `(cl:defstruct (,name-and-options (:predicate ,(format nil "~A?" name-and-options)))
+	    ,@slot-descriptions))
+	((find-if (lambda (obj) (or (equal? obj :predicate) (equal? obj '(:predicate))))
+		  (cdr name-and-options))
+	 (let ((name (car name-and-options))
+	       (options (remove-if (lambda (obj) (or (equal? obj :predicate) (equal? obj '(:predicate))))
+				   (cdr name-and-options) :count 1)))
+	   `(cl:defstruct (,name (:predicate ,(format nil "~A?" name)) ,@options)
+	      ,@slot-descriptions)))
+	((loop :for obj :in (cdr name-and-options) :never (when (list? obj) (eq (car obj) :predicate)))
+	 (let ((name (car name-and-options))
+	       (options (cdr name-and-options)))
+	   `(cl:defstruct (,name (:predicate ,(format nil "~A?" name)) ,@options)
+	      ,@slot-descriptions)))
+	(t `(cl:defstruct ,name-and-options ,@slot-descriptions))))
+
+(setf (documentation 'defstruct 'function) (documentation 'cl:defstruct 'function))
+

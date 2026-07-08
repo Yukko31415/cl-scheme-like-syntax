@@ -15,6 +15,7 @@
 (uiop:define-package #:cl-scheme-like-syntax/predicates
   (:use #:cl
 	#:cl-scheme-like-syntax.internal)
+  (:shadow #:defstruct)
   (:export #:set-car! #:set-cdr!
 	   #:sublis! #:subst! #:subst-if!
 	   #:append! #:revappend!
@@ -51,12 +52,13 @@
   (:export #:hash-table?)
   (:export #:subtype? #:type?)
   (:export #:fbound? #:function? #:compiled-function?
-	   #:eq? #:eql? #:equal? #:equalp?))
+	   #:eq? #:eql? #:equal? #:equalp?)
+  (:export #:defstruct))
 
 
 
 (uiop:define-package #:cl-scheme-like-syntax/places
-  (:use #:cl
+  (:mix #:cl
 	#:cl-scheme-like-syntax.internal
 	#:cl-scheme-like-syntax/predicates)
   (:shadow #:defun
@@ -207,7 +209,7 @@
 
 	   #:defclass #:defconstant #:defgeneric #:define-compiler-macro
 	   #:define-condition #:define-method-combination #:define-modify-macro
-	   #:define-symbol-macro #:defmacro #:defpackage #:defparameter #:defstruct #:deftype #:defvar
+	   #:define-symbol-macro #:defmacro #:defpackage #:defparameter #:deftype #:defvar
 
 	   #:delete-file #:delete-package #:denominator #:deposit-field
 	   #:describe #:describe-object #:destructuring-bind
