@@ -120,12 +120,14 @@
 	   #:string->number
 	   #:string->symbol
 	   #:string->vector
+	   #:string-append
 	   #:string-mismatch
 	   #:string-ref
 	   #:symbol->string
 	   #:values->list
 	   #:vector->list
 	   #:vector->string
+	   #:vector-append
 	   #:vector-ref))
 
 

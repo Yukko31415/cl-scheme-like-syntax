@@ -369,9 +369,9 @@
 
 
 
-;; ------------
-;;;; mismatch
-;; ------------
+;; ----------
+;;;; string
+;; ----------
 
 
 (defun string-mismatch (string1 string2 &key (start1 0) end1 (start2 0) end2 from-end)
@@ -383,9 +383,32 @@
 	    :start2 start2 :end2 end2))
 
 
+(defun vector-append (&rest vectors)
+  "vector-append &rest vectors => vector"
+  (cond
+    ((null vectors) #())
+    ((null (rest vectors)) (copy-seq (first vectors)))
+    (t
+     (let* ((total-length (reduce #'+ vectors :key #'length))
+	    (et (array-element-type (first vectors)))
+	    (result (make-array total-length :element-type et)))
+       (loop for v in vectors
+	     for offset = 0 then (+ offset (length v))
+	     do (replace! result v :start1 offset))
+       result))))
 
 
-
+(defun string-append (&rest strings)
+  "string-append &rest strings => string"
+  (cond ((null strings) "")
+	((null (rest strings)) (copy-seq (first strings)))
+	(t
+	 (let* ((total-length (reduce #'+ strings :key #'length))
+		(result (make-string total-length)))
+	   (loop for s in strings
+		 for offset = 0 then (+ offset (length s))
+		 do (replace! result s :start1 offset))
+	   result))))
 
 
 
