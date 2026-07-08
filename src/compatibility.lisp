@@ -54,7 +54,7 @@
 (defun list->string (list)
   "list->string list => string"
   (declare (list list))
-  (coerce list 'cl:string))
+  (coerce list 'string))
 
 (defun string->list (string &key (start 0) (end nil))
   "string->list string &key start end => list"
