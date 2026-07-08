@@ -20,16 +20,10 @@
   "string &rest char => string"
   (the simple-string (list->string char)))
 
-(deftype stringable ()
-  `(or cl:string symbol character))
-
 (defun string* (stringable)
-  (declare (stringable stringable))
   (cl:string stringable))
 
 (set@ (documentation 'string* 'function) (documentation 'cl:string 'function))
-
-(set@ (find-class 'string) (find-class 'cl:string))
 
 (deftype string (&optional size)
   (if size
