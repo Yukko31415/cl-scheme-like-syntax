@@ -4,92 +4,6 @@
 
 
 
-;; --------------
-;;;; references
-;; --------------
-
-
-
-;; 
-;; string-ref
-
-
-(defun string-ref (string index)
-  "string-ref string index => char"
-  (declare (cl:string string))
-  (the character (aref string index)))
-
-(defun (set@ string-ref) (char string index)
-  (declare (character char))
-  (declare (simple-string string))
-  (set@ (aref string index) char))
-
-
-
-;;
-;; array-ref, array-flat-ref
-
-
-(defun array-ref (array &rest subscripts)
-  "array-ref array &rest subscripts => element"
-  (declare (type (not cl:string) array))
-  (apply #'aref array subscripts))
-
-(defun (set@ array-ref) (object array &rest subscripts)
-  (declare (array array))
-  (set@ (apply #'aref array subscripts) object))
-
-
-(defun array-flat-ref (array index)
-  "array-flat-ref array index => element"
-  (declare (integer index))
-  (row-major-aref array index))
-
-(defun (set@ array-flat-ref) (object array index)
-  (declare (integer index))
-  (set@ (row-major-aref array index) object))
-
-
-
-;;
-;; vector-ref
-
-(defun vector-ref (vector index)
-  "vector-ref vector index => element"
-  (declare (simple-vector vector))
-  (declare (integer index))
-  (aref vector index))
-
-(defun (set@ vector-ref) (object vector index)
-  (declare (simple-vector vector))
-  (declare (integer index))
-  (set@ (aref vector index) object))
-
-
-
-;;
-;; list-ref, list-tail
-
-
-(defun list-ref (list index)
-  "list-ref list idnex => element"
-  (declare (integer index))
-  (nth index list))
-
-(defun (set@ list-ref) (object list index)
-  (set@ (nth index list) object))
-
-
-(defun list-tail (list index)
-  "list-tail list index => tail"
-  (declare (integer index))
-  (nthcdr index list))
-
-(defun (set@ list-tail) (object list index)
-  (set-cdr! (nthcdr (1- index) list) object))
-
-
-
 
 
 
@@ -267,6 +181,99 @@
   (loop :for key :being :the :hash-key :of hash-table
 	  :using (hash-value val)
 	:collect (cons key val)))
+
+
+
+
+
+
+;; --------------
+;;;; references
+;; --------------
+
+
+
+;; 
+;; string-ref
+
+
+(defun string-ref (string index)
+  "string-ref string index => char"
+  (declare (string string))
+  (the character (aref string index)))
+
+(defun (set@ string-ref) (char string index)
+  (declare (character char))
+  (declare (simple-string string))
+  (set@ (aref string index) char))
+
+
+
+;;
+;; array-ref, array-flat-ref
+
+
+(defun array-ref (array &rest subscripts)
+  "array-ref array &rest subscripts => element"
+  (declare (type (not string) array))
+  (apply #'aref array subscripts))
+
+(defun (set@ array-ref) (object array &rest subscripts)
+  (declare (array array))
+  (set@ (apply #'aref array subscripts) object))
+
+
+(defun array-flat-ref (array index)
+  "array-flat-ref array index => element"
+  (declare (integer index))
+  (row-major-aref array index))
+
+(defun (set@ array-flat-ref) (object array index)
+  (declare (integer index))
+  (set@ (row-major-aref array index) object))
+
+
+
+;;
+;; vector-ref
+
+(defun vector-ref (vector index)
+  "vector-ref vector index => element"
+  (declare (simple-vector vector))
+  (declare (integer index))
+  (aref vector index))
+
+(defun (set@ vector-ref) (object vector index)
+  (declare (simple-vector vector))
+  (declare (integer index))
+  (set@ (aref vector index) object))
+
+
+
+;;
+;; list-ref, list-tail
+
+
+(defun list-ref (list index)
+  "list-ref list idnex => element"
+  (declare (integer index))
+  (nth index list))
+
+(defun (set@ list-ref) (object list index)
+  (set@ (nth index list) object))
+
+
+(defun list-tail (list index)
+  "list-tail list index => tail"
+  (declare (integer index))
+  (nthcdr index list))
+
+(defun (set@ list-tail) (object list index)
+  (set-cdr! (nthcdr (1- index) list) object))
+
+
+
+
 
 
 
