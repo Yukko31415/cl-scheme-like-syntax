@@ -286,14 +286,15 @@
 (defun %make-formal (list)
   (cond ((null? list) (values nil nil nil))
 
-	((atom? list) (let ((sym1 (gensym (symbol->string list))))
+	((atom? list) (let ((sym1 (string->symbol (symbol->string list))))
 			(values sym1 (list sym1) (list list))))
 
 	((list? list) (multiple-value-bind (sym2 sym3 sym4) (%make-formal (cdr list))
-			(let ((sym1 (gensym (symbol->string (car list)))))
+			(let ((sym1 (string->symbol (symbol->string (car list)))))
 			  (values (cons sym1 sym2)
 				  (cons sym1 sym3)
 				  (cons (car list) sym4)))))))
+
 
 
 (defun %let-values (bindings body &optional vars args)
@@ -301,7 +302,7 @@
       `(funcall #'(lambda ,vars ,@body) ,@args)
       (destructuring-bind (formal init) (car bindings)
 	(if (symbol? formal)
-	    (let ((sym (gensym (symbol->string formal))))
+	    (let ((sym (string->symbol (symbol->string formal))))
 	      `(let ((,sym (values->list ,init)))
 		 ,(%let-values (cdr bindings) body (append (list formal) vars) (append (list sym) args))))
 	    (multiple-value-bind (improp-args prop-args prop-vars) (%make-formal formal)
