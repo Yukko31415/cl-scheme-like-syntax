@@ -407,8 +407,7 @@
 		(result (make-string total-length)))
 	   (loop :for offset := 0 :then (inc@ offset (length s))
 		 :for s :in strings
-		 :do (replace! result s :start1 offset)
-		     (print result))
+		 :do (replace! result s :start1 offset))
 	   result))))
 
 
