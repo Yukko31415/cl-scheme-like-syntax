@@ -392,9 +392,9 @@
      (let* ((total-length (reduce #'+ vectors :key #'length))
 	    (et (array-element-type (first vectors)))
 	    (result (make-array total-length :element-type et)))
-       (loop for v in vectors
-	     for offset = 0 then (+ offset (length v))
-	     do (replace! result v :start1 offset))
+       (loop :for offset := 0 :then (+ offset (length v))
+	     :for v :in vectors
+	     :do (replace! result v :start1 offset))
        result))))
 
 
@@ -405,10 +405,13 @@
 	(t
 	 (let* ((total-length (reduce #'+ strings :key #'length))
 		(result (make-string total-length)))
-	   (loop for s in strings
-		 for offset = 0 then (+ offset (length s))
-		 do (replace! result s :start1 offset))
+	   (loop :for offset := 0 :then (inc@ offset (length s))
+		 :for s :in strings
+		 :do (replace! result s :start1 offset)
+		     (print result))
 	   result))))
+
+
 
 
 
