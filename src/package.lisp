@@ -154,14 +154,15 @@
 	#:cl-scheme-like-syntax/places
 	#:cl-scheme-like-syntax/bangs
 	#:cl-scheme-like-syntax/compatibility
+	#:cl-scheme-like-syntax/number
 	#:cl-scheme-like-syntax/srfis
 	#:cl)
   (:reexport #:cl-scheme-like-syntax/predicates
 	     #:cl-scheme-like-syntax/places
 	     #:cl-scheme-like-syntax/bangs
 	     #:cl-scheme-like-syntax/compatibility
-	     #:cl-scheme-like-syntax/srfis
-	     #:cl-scheme-like-syntax/number)
+	     #:cl-scheme-like-syntax/number
+	     #:cl-scheme-like-syntax/srfis)
 
   (:export #:&allow-other-keys #:&aux #:&body #:&environment
 	   #:&key #:&optional #:&rest #:&whole)
