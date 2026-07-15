@@ -293,6 +293,7 @@
 ;; number->string
 
 (defun number->string (number &optional (radix 10))
+  "number->string number [radix] => string"
   (declare (number number))
   (etypecase number
     (real    (real->string    number radix))
@@ -394,8 +395,9 @@
 ;; string->number
 
 (defun string->number (string &key (start 0) (end nil) (radix 10))
+  "string->number &key start end radix => number"
   (or (string->complex string :start start :end end :radix radix)
-      (string->real string :start start :end end :radix radix)))
+     (string->real string :start start :end end :radix radix)))
 
 
 
