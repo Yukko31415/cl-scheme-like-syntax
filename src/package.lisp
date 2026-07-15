@@ -160,7 +160,8 @@
 	     #:cl-scheme-like-syntax/places
 	     #:cl-scheme-like-syntax/bangs
 	     #:cl-scheme-like-syntax/compatibility
-	     #:cl-scheme-like-syntax/srfis)
+	     #:cl-scheme-like-syntax/srfis
+	     #:cl-scheme-like-syntax/number)
 
   (:export #:&allow-other-keys #:&aux #:&body #:&environment
 	   #:&key #:&optional #:&rest #:&whole)
