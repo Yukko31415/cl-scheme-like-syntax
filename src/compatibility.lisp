@@ -23,12 +23,12 @@
 (defun string* (stringable)
   (cl:string stringable))
 
-(set@ (documentation 'string* 'function) (documentation 'cl:string 'function))
-
 (deftype string (&optional size)
   (if size
       `(cl:string ,size)
       'cl:string))
+
+(set@ (documentation 'string* 'function) (documentation 'cl:string 'function))
 
 
 ;; 
@@ -236,10 +236,13 @@
 
 (defun list-ref (list index)
   "list-ref list idnex => element"
+  (declare (list list))
   (declare (integer index))
   (nth index list))
 
 (defun (set@ list-ref) (object list index)
+  (declare (list list))
+  (declare ((integer 0) index))
   (set@ (nth index list) object))
 
 
@@ -249,6 +252,8 @@
   (nthcdr index list))
 
 (defun (set@ list-tail) (object list index)
+  (declare (list list))
+  (declare ((integer 0) index))
   (set-cdr! (nthcdr (1- index) list) object))
 
 
