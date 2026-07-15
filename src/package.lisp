@@ -102,6 +102,8 @@
 	   #:char-encode
 	   #:code->char
 	   #:hash-table->alist
+	   #:if-let
+	   #:if-let*
 	   #:integer->char
 	   #:let*-values
 	   #:let-values

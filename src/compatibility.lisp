@@ -339,6 +339,35 @@
 
 
 ;;
+;; if-let, if-let*
+
+(defmacro if-let (bindings &body (then-form &optional else-form)) ;; from alexandria
+  "if-let !bindings then &optional else => {result}*
+   bindings ::= {(var form) | ({(var form)}*)}"
+  ;; bindings can be (var form) or ((var1 form1) ...)
+  (check-type bindings cons)
+  (let* ((binding-list (if (symbolp (car bindings)) (list bindings) bindings))
+	 (variables (mapcar #'car binding-list)))
+    `(let ,binding-list
+       (if (and ,@variables)
+	   ,then-form
+	   ,else-form))))
+
+(defmacro if-let* (bindings &body (then-form &optional else-form)) ;; from alexandria
+  "if-let* !bindings then &optional else => {result}*
+   bindings ::= {(var form) | ({(var form)}*)}"
+  ;; bindings can be (var form) or ((var1 form1) ...)
+  (check-type bindings cons)
+  (let* ((binding-list (if (symbolp (car bindings)) (list bindings) bindings))
+	 (variables (mapcar #'car binding-list)))
+    `(let* ,binding-list
+       (if (and ,@variables)
+	   ,then-form
+	   ,else-form))))
+
+
+
+;;
 ;; bind-with-values, call-with-values, prog1-with-values, setq-with-values
 
 
