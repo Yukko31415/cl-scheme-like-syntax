@@ -30,7 +30,7 @@
 	 (pop@      . pop)
 	 (pushnew@  . pop)
 	 
-	 (defset@ . defsetf)
+	 (defset@   . defsetf)
 	 (get-set@-expansion   . get-setf-expansion)
 	 (define-set@-expander . define-setf-expander))
 
