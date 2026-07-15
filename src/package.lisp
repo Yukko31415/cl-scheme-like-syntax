@@ -116,7 +116,6 @@
 	   #:string->symbol
 	   #:string->vector
 	   #:string-append
-	   #:string-mismatch
 	   #:string-ref
 	   #:symbol->string
 	   #:values->list
