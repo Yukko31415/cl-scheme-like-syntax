@@ -16,11 +16,6 @@
   (:use #:cl
 	#:cl-scheme-like-syntax.internal)
   (:shadow #:defstruct)
-  (:export #:set-car! #:set-cdr!
-	   #:sublis! #:subst! #:subst-if!
-	   #:append! #:revappend!
-	   #:butlast! #:intersection!
-	   #:set-difference! #:set-exclusive-or! #:union!)
   (:export #:cons? #:list? #:end? #:tail? #:subset? #:null? #:atom?)
   (:export #:readtable?)
   (:export #:minus? #:plus? #:odd? #:even?
