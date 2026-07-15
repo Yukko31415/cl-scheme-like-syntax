@@ -40,7 +40,7 @@
   (assert (digit-char? char radix) (char))
   (digit-char-p char radix))
 
-(defun integer->char (integer &optional radix)
+(defun integer->char (integer &optional (radix 10))
   "integer->char integer &optional radix => char"
   (assert (<= 0 integer (1- radix)))
   (digit-char integer radix))
