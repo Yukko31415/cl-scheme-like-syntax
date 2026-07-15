@@ -50,7 +50,6 @@
 (defun make-cut (list)
   (loop :for sym := (pop list)
 	:with apply?
-	:while sym
 	
 	:if (var-slot? sym)
 	  :do (set@ sym (gensym "SLOT"))
@@ -64,7 +63,7 @@
 	:end
 	
 	:collect sym :into arg-list
-
+	:while list
 	:finally (return (values lambda-list arg-list apply?))))
 
 
