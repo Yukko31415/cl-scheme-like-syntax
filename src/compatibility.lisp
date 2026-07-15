@@ -80,20 +80,6 @@
 	  :collect (aref vector i))))
 
 
-
-;;
-;; string->number, number->string
-
-
-(defun string->number (string &key (start 0) end (radix 10))
-  "string->number string &key start end radix => number"
-  (values (parse-integer string :radix radix :start start :end end)))
-
-(defun number->string (number &optional (radix 10))
-  "number->string number &optional radix => string"
-  (with-output-to-string (stream)
-    (write number :base radix :stream stream)))
-
 ;;
 ;; string->vector, vector->string
 

@@ -111,13 +111,11 @@
 	   #:list-ref
 	   #:list-tail
 	   #:name->char
-	   #:number->string
 	   #:prog1-with-values
 	   #:setq-with-values!
 	   #:string
 	   #:string*
 	   #:string->list
-	   #:string->number
 	   #:string->symbol
 	   #:string->vector
 	   #:string-append
@@ -129,6 +127,18 @@
 	   #:vector->string
 	   #:vector-append
 	   #:vector-ref))
+
+
+(uiop:define-package #:cl-scheme-like-syntax/number
+  (:mix #:cl-scheme-like-syntax/compatibility
+	#:cl-scheme-like-syntax/places
+	#:cl-scheme-like-syntax/predicates
+	#:cl-scheme-like-syntax/bangs
+	#:cl-scheme-like-syntax/compatibility
+	#:uiop
+	#:cl)
+  (:export #:number->string #:string->number))
+
 
 
 (uiop:define-package #:cl-scheme-like-syntax/srfis

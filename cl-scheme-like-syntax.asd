@@ -18,4 +18,5 @@
 			     (:file "places")
 			     (:file "bangs")
 			     (:file "compatibility")
+			     (:file "number")
 			     (:file "srfis")))))
