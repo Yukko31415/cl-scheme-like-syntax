@@ -12,19 +12,15 @@
 
 (defun string-compare (string1 string2 proc< proc= proc> &key (start1 0) end1 (start2 0) end2)
   "string-compare string1 string2 proc< proc= proc> &key start1 end1 star2 end2 => {result}*"
-  (let* ((index (string-mismatch string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2))
-	 (less? (cond ((not index) nil)
-		      ((<= (length string1) index) t)
-		      ((<= (length string2) index) nil)
-		      (t (char< (char string1 index) (char string2 index))))))
-    (cond ((not index) (funcall proc= 0))
-	  (less? (funcall proc< index))
-	  ((not less?) (funcall proc> index)))))
-
-(define-indentation string-compare (1 1 &body))
-
-
-
+  (declare (string string1 string2))
+  (let* ((index   (mismatch string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2
+					    :test #'char=?))
+	 (length1 (length string1))
+	 (length2 (length string2))
+	 (min     (min length1 length2)))
+    (cond ((not index) (funcall proc= min))
+	  ((or (= index length1) (char<? (char string1 index) (char string2 index))) (funcall proc< index))
+	  (t (funcall proc> index)))))
 
 
 ;;
