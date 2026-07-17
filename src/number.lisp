@@ -382,11 +382,6 @@
 ;; string->complex
 
 
-(defmacro and-let* (bindings &body body)
-  `(let ,bindings
-     (when (and ,@(mapcar #'car bindings))
-       ,@body)))
-
 (defun string->complex (string &key (start 0) (end nil) (radix 10) (sign-allowed t))
   (if-let (pos (position-if (lambda (char) (member char '(#\+ #\-))) string :start start :end end :from-end t))
     (if (zero? pos)
