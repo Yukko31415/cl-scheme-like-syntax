@@ -150,15 +150,15 @@
   (declare (ratio ratio))
   (bind-with-values (terminating? fractional-digit) (terminating-decimal? ratio radix)
     (if (not terminating?) nil
-	(let* ((quot (truncate ratio))
+	(let* ((quot          (truncate ratio))
 	       (integer-digit (%integer-digit quot radix)))
 	  (+ integer-digit fractional-digit)))))
 
 
 (defun %ratio-length (ratio &optional (radix 10))
   (declare (ratio ratio))
-  (let* ((digit (%ratio-digit ratio radix))
-	 (minus? (minus? ratio)))
+  (let ((digit  (%ratio-digit ratio radix))
+	(minus? (minus? ratio)))
     (when digit (+ digit 1 (if minus? 1 0)))))
 
 (defun %ratio-length/non-float (ratio &optional radix)
