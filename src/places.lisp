@@ -41,10 +41,10 @@
 
 (defmacro defun (name lambda-list &body body)
   (when (and (list? name) (symbol=? 'set@ (car name)))
-    (set@ name (cons 'setf (cdr name))))
+    (setf name (cons 'setf (cdr name))))
   `(cl:defun ,name ,lambda-list ,@body))
 
-(set@ (documentation 'defun 'function)
+(setf (documentation 'defun 'function)
       (documentation 'cl:defun 'function))
 
 
@@ -53,10 +53,10 @@
 
 (defmacro defmethod (name &rest args)
   (when (and (list? name) (symbol=? 'set@ (car name)))
-    (set@ name (cons 'setf (cdr name))))
+    (setf name (cons 'setf (cdr name))))
   `(cl:defmethod ,name ,@args))
 
-(set@ (documentation 'defmethod 'function)
+(setf (documentation 'defmethod 'function)
       (documentation 'cl:defmethod 'function))
 
 
