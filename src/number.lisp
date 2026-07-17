@@ -321,23 +321,29 @@
 (defmacro %string->integer (string start end radix sign-allowed)
   `(string->integer ,string :start ,start :end ,end :radix ,radix :sign-allowed ,sign-allowed))
 
+
+
+
 ;;
 ;; string->float-or-ratio
 
+(defun %make-float (string start pos end radix sign-allowed)
+  (let ((intpart   (if (zero? pos) 0 (%string->integer string start pos radix sign-allowed)))
+	(numerator (%string->integer string (1+ pos) end radix sign-allowed))
+	(denominator (expt radix (- end (1+ pos)))))
+    (if-let (digit (nth-value 1 (terminating-decimal? (/ numerator denominator) 10)))
+      (float (+ intpart (* (/ numerator denominator) (expt 10 digit) (expt 1/10 digit)))))))
 
-(defun %make-float (int frac digit)
-  (funcall (if (minus? int) #'- #'identity)
-	   (float (+ (abs int) (/ frac (expt 10 digit))))))
+(defun %make-ratio (string start pos end radix sign-allowed)
+  (/ (%string->integer  string start pos radix sign-allowed)
+     (%string->integer  string (1+ pos) end radix nil)))
 
 (defun string->float-or-ratio (string &key (start 0) (end nil) (radix 10) (sign-allowed t) &aux type-char)
   (if-let (pos (position-if (lambda (char) (if-let (list (member char '(#\. #\/))) (set@ type-char (car list))))
 			    string :start start :end end))
-    (let* ((end    (or end (length string)))
-	   (first  (%string->integer string start pos radix sign-allowed))
-	   (second (%string->integer string (1+ pos) end radix nil)))
-      (cond ((char=? type-char #\.) (%make-float (if (zero? pos) 0 first) second (- end (1+ pos))))
-	    ((not (and first second)) nil)
-	    ((char=? type-char #\/) (/ first second))))))
+    (let ((end (or end (length string))))
+      (cond ((char=? type-char #\.) (%make-float string start pos end radix sign-allowed))
+	    ((char=? type-char #\/) (%make-ratio string start pos end radix sign-allowed))))))
 
 (defmacro %string->float-or-ratio (string start end radix sign-allowed)
   `(string->float-or-ratio ,string :start ,start :end ,end :radix ,radix :sign-allowed ,sign-allowed))
