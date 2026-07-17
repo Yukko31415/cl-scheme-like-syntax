@@ -97,9 +97,9 @@
 (defun terminating-decimal? (ratio &optional (radix 10))
   (declare (ratio ratio))
   (declare (proper-radix radix))
-  (loop :with denominator := (denominator ratio)
-	:with factors     := (radix->factor radix)
-	:for  list        :in factors
+  (loop :with denominator  := (denominator ratio)
+	:with factors      := (radix->factor radix)
+	:for  list         :in factors
 	:for  (quot count) := (values->list (%terminating-decimal? denominator list))
 	                       :then (values->list (%terminating-decimal? quot list))
 	:maximize count :into max
