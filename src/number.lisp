@@ -328,15 +328,17 @@
 ;; string->float-or-ratio
 
 (defun %make-float (string start pos end radix sign-allowed)
-  (let ((intpart   (if (zero? pos) 0 (%string->integer string start pos radix sign-allowed)))
+  (let ((intpart (if (zero? pos) 0 (%string->integer string start pos radix sign-allowed)))
 	(numerator (%string->integer string (1+ pos) end radix sign-allowed))
 	(denominator (expt radix (- end (1+ pos)))))
     (if-let (digit (nth-value 1 (terminating-decimal? (/ numerator denominator) 10)))
       (float (+ intpart (* (/ numerator denominator) (expt 10 digit) (expt 1/10 digit)))))))
 
+
 (defun %make-ratio (string start pos end radix sign-allowed)
   (/ (%string->integer  string start pos radix sign-allowed)
      (%string->integer  string (1+ pos) end radix nil)))
+
 
 (defun string->float-or-ratio (string &key (start 0) (end nil) (radix 10) (sign-allowed t) &aux type-char)
   (if-let (pos (position-if (lambda (char) (if-let (list (member char '(#\. #\/))) (set@ type-char (car list))))
@@ -354,7 +356,7 @@
 
 (defun string->real (string &key (start 0) (end nil) (radix 10) (sign-allowed t))
   (or (%string->integer string start end radix sign-allowed)
-     (%string->float-or-ratio string start end radix sign-allowed)))
+      (%string->float-or-ratio string start end radix sign-allowed)))
 
 (defmacro %string->real (string start end radix sign-allowed)
   `(string->real ,string :start ,start :end ,end :radix ,radix :sign-allowed ,sign-allowed))
