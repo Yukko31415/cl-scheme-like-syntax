@@ -345,7 +345,7 @@
   (let* ((binding-list (if (symbolp (car bindings)) (list bindings) bindings))
 	 (variables (mapcar #'car binding-list)))
     `(let ,binding-list
-       (if (and ,@variables)
+       (if ,(if (= (length variables) 1) (car variables) `(and ,@variables))
 	   ,then-form
 	   ,else-form))))
 
@@ -357,7 +357,7 @@
   (let* ((binding-list (if (symbolp (car bindings)) (list bindings) bindings))
 	 (variables (mapcar #'car binding-list)))
     `(let* ,binding-list
-       (if (and ,@variables)
+       (if ,(if (= (length variables) 1) (car variables) `(and ,@variables))
 	   ,then-form
 	   ,else-form))))
 
