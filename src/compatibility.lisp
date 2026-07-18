@@ -418,6 +418,33 @@
 
 
 
+;; --------
+;;;; cond
+;; --------
+
+;; clause ::= (test {feom}*)  |
+;;            (test => receiver) |
+;;            (else {form}*)
+
+(defun %make-cond (clauses)
+  (when clauses
+    (let ((car (car clauses))
+	  (cdr (cdr clauses)))
+      (if (and (symbol? (second car)) (symbol=? (second car) '=>))
+	  (destructuring-bind (test => receiver) car
+	    (declare (ignore =>))
+	    (let ((sym (gensym)))
+	      `(if-let (,sym ,test) (funcall ,receiver ,sym) ,(%make-cond cdr))))
+	  (destructuring-bind (test &rest forms) car
+	    `(if ,(if (and (symbol? test) (symbol=? test 'else)) 'T test)
+		 ,(if (= (length forms) 1) (car forms) `(progn ,@forms))
+		 ,(%make-cond cdr)))))))
+
+
+(defmacro cond (&rest clauses)
+  "cond {!clause}* => {result}*
+   clause ::= (test-form {form}*) | (test-form => function) | (else {form}*)"
+  (%make-cond clauses))
 
 
 

@@ -85,7 +85,7 @@
 	#:cl-scheme-like-syntax/bangs
 	#:cl-scheme-like-syntax/places
 	#:cl)
-  (:shadow #:string)
+  (:shadow #:string #:cond)
   (:export #:alist->hash-table
 	   #:array-flat-ref
 	   #:array-ref
@@ -96,6 +96,7 @@
 	   #:char->name
 	   #:char-encode
 	   #:code->char
+	   #:cond
 	   #:hash-table->alist
 	   #:if-let
 	   #:if-let*
