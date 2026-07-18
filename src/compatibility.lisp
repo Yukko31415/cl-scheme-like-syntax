@@ -37,7 +37,7 @@
 
 (defun char->integer (char &optional (radix 10))
   "char->integer char &optional radix => integer"
-  (assert (digit-char? char radix) (char))
+  (assert (digit-char-p char radix) (char))
   (digit-char-p char radix))
 
 (defun integer->char (integer &optional (radix 10))
@@ -257,7 +257,66 @@
   (set-cdr! (nthcdr (1- index) list) object))
 
 
+;; -------------------
+;;;; if-let, if-let*
+;; -------------------
 
+
+(defmacro if-let (bindings &body (then-form &optional else-form)) ;; from alexandria
+  "if-let !bindings then &optional else => {result}*
+   bindings ::= {(var form) | ({(var form)}*)}"
+  ;; bindings can be (var form) or ((var1 form1) ...)
+  (check-type bindings cons)
+  (let* ((binding-list (if (symbolp (car bindings)) (list bindings) bindings))
+	 (variables (mapcar #'car binding-list)))
+    `(let ,binding-list
+       (if ,(if (= (length variables) 1) (car variables) `(and ,@variables))
+	   ,then-form
+	   ,else-form))))
+
+(defmacro if-let* (bindings &body (then-form &optional else-form)) ;; from alexandria
+  "if-let* !bindings then &optional else => {result}*
+   bindings ::= {(var form) | ({(var form)}*)}"
+  ;; bindings can be (var form) or ((var1 form1) ...)
+  (check-type bindings cons)
+  (let* ((binding-list (if (symbolp (car bindings)) (list bindings) bindings))
+	 (variables (mapcar #'car binding-list)))
+    `(let* ,binding-list
+       (if ,(if (= (length variables) 1) (car variables) `(and ,@variables))
+	   ,then-form
+	   ,else-form))))
+
+
+
+
+
+;; --------
+;;;; cond
+;; --------
+
+;; clause ::= (test {feom}*)  |
+;;            (test => receiver) |
+;;            (else {form}*)
+
+(defun %make-cond (clauses)
+  (when clauses
+    (let ((car (car clauses))
+	  (cdr (cdr clauses)))
+      (if (and (symbolp (second car)) (symbol=? (second car) '=>))
+	  (destructuring-bind (test => receiver) car
+	    (declare (ignore =>))
+	    (let ((sym (gensym)))
+	      `(if-let (,sym ,test) (funcall ,receiver ,sym) ,(%make-cond cdr))))
+	  (destructuring-bind (test &rest forms) car
+	    `(if ,(if (and (symbolp test) (symbol=? test 'else)) 'T test)
+		 ,(if (= (length forms) 1) (car forms) `(progn ,@forms))
+		 ,(%make-cond cdr)))))))
+
+
+(defmacro cond (&rest clauses)
+  "cond {!clause}* => {result}*
+   clause ::= (test-form {form}*) | (test-form => function) | (else {form}*)"
+  (%make-cond clauses))
 
 
 
@@ -271,12 +330,12 @@
 
 
 (defun %make-formal (list)
-  (cond ((null? list) (values nil nil nil))
+  (cond ((null list) (values nil nil nil))
 
-	((atom? list) (let ((sym1 (string->symbol (symbol->string list))))
-			(values sym1 (list sym1) (list list))))
+	((atom list) (let ((sym1 (string->symbol (symbol->string list))))
+		       (values sym1 (list sym1) (list list))))
 
-	((list? list) (multiple-value-bind (sym2 sym3 sym4) (%make-formal (cdr list))
+	((listp list) (multiple-value-bind (sym2 sym3 sym4) (%make-formal (cdr list))
 			(let ((sym1 (string->symbol (symbol->string (car list)))))
 			  (values (cons sym1 sym2)
 				  (cons sym1 sym3)
@@ -285,10 +344,10 @@
 
 
 (defun %let-values (bindings body &optional vars args)
-  (if (null? bindings)
+  (if (null bindings)
       `(funcall #'(lambda ,vars ,@body) ,@args)
       (destructuring-bind (formal init) (car bindings)
-	(if (symbol? formal)
+	(if (symbolp formal)
 	    (let ((sym (string->symbol (symbol->string formal))))
 	      `(let ((,sym (values->list ,init)))
 		 ,(%let-values (cdr bindings) body (append (list formal) vars) (append (list sym) args))))
@@ -315,14 +374,14 @@
   (destructuring-bind (formal init) (car bindings)
     (multiple-value-bind (improp-args prop-args prop-vars) (%make-formal formal)
       (let ((let-bindings (%make-let-bindings prop-vars prop-args)))
-	(if (symbol? formal)
+	(if (symbolp formal)
 	    `(let ((,formal (values->list ,init)))
-	       ,@(if (null? (cdr bindings))
+	       ,@(if (null (cdr bindings))
 		     body
 		     (list (%let*-values (cdr bindings) body))))
 	    `(destructuring-bind ,improp-args (values->list ,init)
 	       (let ,let-bindings
-		 ,@(if (null? (cdr bindings))
+		 ,@(if (null (cdr bindings))
 		       body
 		       (list (%let*-values (cdr bindings) body))))))))))
 
@@ -331,35 +390,6 @@
   "let*-values ({({!formal} init-form)}*) {declaration}* {form}*
    formal ::= var | ({var}*) | ({var}* . var)"
   (%let*-values bindings body))
-
-
-
-;;
-;; if-let, if-let*
-
-(defmacro if-let (bindings &body (then-form &optional else-form)) ;; from alexandria
-  "if-let !bindings then &optional else => {result}*
-   bindings ::= {(var form) | ({(var form)}*)}"
-  ;; bindings can be (var form) or ((var1 form1) ...)
-  (check-type bindings cons)
-  (let* ((binding-list (if (symbolp (car bindings)) (list bindings) bindings))
-	 (variables (mapcar #'car binding-list)))
-    `(let ,binding-list
-       (if ,(if (= (length variables) 1) (car variables) `(and ,@variables))
-	   ,then-form
-	   ,else-form))))
-
-(defmacro if-let* (bindings &body (then-form &optional else-form)) ;; from alexandria
-  "if-let* !bindings then &optional else => {result}*
-   bindings ::= {(var form) | ({(var form)}*)}"
-  ;; bindings can be (var form) or ((var1 form1) ...)
-  (check-type bindings cons)
-  (let* ((binding-list (if (symbolp (car bindings)) (list bindings) bindings))
-	 (variables (mapcar #'car binding-list)))
-    `(let* ,binding-list
-       (if ,(if (= (length variables) 1) (car variables) `(and ,@variables))
-	   ,then-form
-	   ,else-form))))
 
 
 
@@ -416,35 +446,6 @@
 		 result))))
 
 
-
-
-;; --------
-;;;; cond
-;; --------
-
-;; clause ::= (test {feom}*)  |
-;;            (test => receiver) |
-;;            (else {form}*)
-
-(defun %make-cond (clauses)
-  (when clauses
-    (let ((car (car clauses))
-	  (cdr (cdr clauses)))
-      (if (and (symbol? (second car)) (symbol=? (second car) '=>))
-	  (destructuring-bind (test => receiver) car
-	    (declare (ignore =>))
-	    (let ((sym (gensym)))
-	      `(if-let (,sym ,test) (funcall ,receiver ,sym) ,(%make-cond cdr))))
-	  (destructuring-bind (test &rest forms) car
-	    `(if ,(if (and (symbol? test) (symbol=? test 'else)) 'T test)
-		 ,(if (= (length forms) 1) (car forms) `(progn ,@forms))
-		 ,(%make-cond cdr)))))))
-
-
-(defmacro cond (&rest clauses)
-  "cond {!clause}* => {result}*
-   clause ::= (test-form {form}*) | (test-form => function) | (else {form}*)"
-  (%make-cond clauses))
 
 
 
