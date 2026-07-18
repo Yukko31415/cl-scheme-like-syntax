@@ -257,6 +257,7 @@
   (set-cdr! (nthcdr (1- index) list) object))
 
 
+
 ;; -------------------
 ;;;; if-let, if-let*
 ;; -------------------
@@ -288,8 +289,6 @@
 
 
 
-
-
 ;; --------
 ;;;; cond
 ;; --------
@@ -298,19 +297,20 @@
 ;;            (test => receiver) |
 ;;            (else {form}*)
 
-(defun %make-cond (clauses)
-  (when clauses
-    (let ((car (car clauses))
-	  (cdr (cdr clauses)))
-      (if (and (symbolp (second car)) (symbol=? (second car) '=>))
-	  (destructuring-bind (test => receiver) car
-	    (declare (ignore =>))
-	    (let ((sym (gensym)))
-	      `(if-let (,sym ,test) (funcall ,receiver ,sym) ,(%make-cond cdr))))
-	  (destructuring-bind (test &rest forms) car
-	    `(if ,(if (and (symbolp test) (symbol=? test 'else)) 'T test)
-		 ,(if (= (length forms) 1) (car forms) `(progn ,@forms))
-		 ,(%make-cond cdr)))))))
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defun %make-cond (clauses)
+    (when clauses
+      (let ((car (car clauses))
+	    (cdr (cdr clauses)))
+	(if (and (symbolp (second car)) (symbol=? (second car) '=>))
+	    (destructuring-bind (test => receiver) car
+	      (declare (ignore =>))
+	      (let ((sym (gensym)))
+		`(if-let (,sym ,test) (funcall ,receiver ,sym) ,(%make-cond cdr))))
+	    (destructuring-bind (test &rest forms) car
+	      `(if ,(if (and (symbolp test) (symbol=? test 'else)) 'T test)
+		   ,(if (= (length forms) 1) (car forms) `(progn ,@forms))
+		   ,(%make-cond cdr))))))))
 
 
 (defmacro cond (&rest clauses)
