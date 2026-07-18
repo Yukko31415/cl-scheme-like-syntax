@@ -210,7 +210,7 @@
 	   #:compile-file-pathname #:compiled-function #:compiler-macro
 	   #:compiler-macro-function #:complement #:complex #:compute-applicable-methods
 	   #:compute-restarts #:concatenate #:concatenated-stream
-	   #:concatenated-stream-streams #:cond #:condition #:conjugate #:cons
+	   #:concatenated-stream-streams #:condition #:conjugate #:cons
 	   #:constantly #:constantp #:continue #:control-error #:copy-alist #:copy-list
 	   #:copy-pprint-dispatch #:copy-readtable #:copy-seq #:copy-structure
 	   #:copy-symbol #:copy-tree #:cos #:cosh #:count #:count-if
