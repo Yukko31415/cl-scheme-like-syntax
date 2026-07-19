@@ -258,66 +258,6 @@
 
 
 
-;; -------------------
-;;;; if-let, if-let*
-;; -------------------
-
-
-(defmacro if-let (bindings &body (then-form &optional else-form)) ;; from alexandria
-  "if-let !bindings then &optional else => {result}*
-   bindings ::= {(var form) | ({(var form)}*)}"
-  ;; bindings can be (var form) or ((var1 form1) ...)
-  (check-type bindings cons)
-  (let* ((binding-list (if (symbolp (car bindings)) (list bindings) bindings))
-	 (variables (mapcar #'car binding-list)))
-    `(let ,binding-list
-       (if ,(if (= (length variables) 1) (car variables) `(and ,@variables))
-	   ,then-form
-	   ,else-form))))
-
-(defmacro if-let* (bindings &body (then-form &optional else-form)) ;; from alexandria
-  "if-let* !bindings then &optional else => {result}*
-   bindings ::= {(var form) | ({(var form)}*)}"
-  ;; bindings can be (var form) or ((var1 form1) ...)
-  (check-type bindings cons)
-  (let* ((binding-list (if (symbolp (car bindings)) (list bindings) bindings))
-	 (variables (mapcar #'car binding-list)))
-    `(let* ,binding-list
-       (if ,(if (= (length variables) 1) (car variables) `(and ,@variables))
-	   ,then-form
-	   ,else-form))))
-
-
-
-;; --------
-;;;; cond
-;; --------
-
-;; clause ::= (test {feom}*)  |
-;;            (test => receiver) |
-;;            (else {form}*)
-
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (defun %make-cond (clauses)
-    (when clauses
-      (let ((car (car clauses))
-	    (cdr (cdr clauses)))
-	(if (and (symbolp (second car)) (symbol=? (second car) '=>))
-	    (destructuring-bind (test => receiver) car
-	      (declare (ignore =>))
-	      (let ((sym (gensym)))
-		`(if-let (,sym ,test) (funcall ,receiver ,sym) ,(%make-cond cdr))))
-	    (destructuring-bind (test &rest forms) car
-	      `(if ,(if (and (symbolp test) (symbol=? test 'else)) 'T test)
-		   ,(if (= (length forms) 1) (car forms) `(progn ,@forms))
-		   ,(%make-cond cdr))))))))
-
-
-(defmacro cond (&rest clauses)
-  "cond {!clause}* => {result}*
-   clause ::= (test-form {form}*) | (test-form => function) | (else {form}*)"
-  (%make-cond clauses))
-
 
 
 ;; ----------

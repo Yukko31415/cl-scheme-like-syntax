@@ -79,13 +79,36 @@
   (:export #:make-function-unbound! #:setq! #:psetq!))
 
 
-(uiop:define-package #:cl-scheme-like-syntax/compatibility
+
+(uiop:define-package #:cl-scheme-like-syntax/control-flow
   (:mix #:cl-scheme-like-syntax.internal
 	#:cl-scheme-like-syntax/predicates
 	#:cl-scheme-like-syntax/bangs
 	#:cl-scheme-like-syntax/places
 	#:cl)
-  (:shadow #:string #:cond)
+  (:shadow #:cond
+	   #:case #:ccase #:ecase
+	   #:typecase #:ctypecase #:etypecase)
+  (:export #:case
+	   #:ccase
+	   #:cond
+	   #:ctypecase
+	   #:ecase
+	   #:etypecase
+	   #:if-let
+	   #:if-let*
+	   #:typecase))
+
+
+
+(uiop:define-package #:cl-scheme-like-syntax/compatibility
+  (:mix #:cl-scheme-like-syntax.internal
+	#:cl-scheme-like-syntax/predicates
+	#:cl-scheme-like-syntax/bangs
+	#:cl-scheme-like-syntax/places
+	#:cl-scheme-like-syntax/control-flow
+	#:cl)
+  (:shadow #:string)
   (:export #:alist->hash-table
 	   #:array-flat-ref
 	   #:array-ref
@@ -96,10 +119,7 @@
 	   #:char->name
 	   #:char-encode
 	   #:code->char
-	   #:cond
 	   #:hash-table->alist
-	   #:if-let
-	   #:if-let*
 	   #:integer->char
 	   #:let*-values
 	   #:let-values
@@ -132,6 +152,7 @@
 	#:cl-scheme-like-syntax/predicates
 	#:cl-scheme-like-syntax/bangs
 	#:cl-scheme-like-syntax/compatibility
+	#:cl-scheme-like-syntax/control-flow
 	#:uiop
 	#:cl)
   (:export #:number->string #:string->number))
@@ -143,6 +164,7 @@
 	#:cl-scheme-like-syntax/places
 	#:cl-scheme-like-syntax/predicates
 	#:cl-scheme-like-syntax/bangs
+	#:cl-scheme-like-syntax/control-flow
 	#:trivial-indent
 	#:cl)
   (:export #:cut #:cute #:string-compare))
@@ -157,13 +179,15 @@
 	#:cl-scheme-like-syntax/compatibility
 	#:cl-scheme-like-syntax/number
 	#:cl-scheme-like-syntax/srfis
+	#:cl-scheme-like-syntax/control-flow
 	#:cl)
   (:reexport #:cl-scheme-like-syntax/predicates
 	     #:cl-scheme-like-syntax/places
 	     #:cl-scheme-like-syntax/bangs
 	     #:cl-scheme-like-syntax/compatibility
 	     #:cl-scheme-like-syntax/number
-	     #:cl-scheme-like-syntax/srfis)
+	     #:cl-scheme-like-syntax/srfis
+	     #:cl-scheme-like-syntax/control-flow)
 
   (:export #:&allow-other-keys #:&aux #:&body #:&environment
 	   #:&key #:&optional #:&rest #:&whole)
@@ -200,8 +224,8 @@
 	   #:byte #:byte-position #:byte-size)
   (:export #:caaaar #:caaadr #:caaar #:caadar #:caaddr
 	   #:caadr #:caar #:cadaar #:cadadr #:cadar #:caddar #:cadddr #:caddr #:cadr
-	   #:call-arguments-limit #:call-method #:call-next-method #:car #:case #:catch
-	   #:ccase #:cdaaar #:cdaadr #:cdaar #:cdadar #:cdaddr #:cdadr #:cdar #:cddaar
+	   #:call-arguments-limit #:call-method #:call-next-method #:car #:catch
+	   #:cdaaar #:cdaadr #:cdaar #:cdadar #:cdaddr #:cdadr #:cdar #:cddaar
 	   #:cddadr #:cddar #:cdddar #:cddddr #:cdddr #:cddr #:cdr #:ceiling #:cell-error
 	   #:cell-error-name #:cerror #:change-class #:char #:char-code-limit
 	   #:char-downcase #:char-int #:char-upcase #:character #:check-type
@@ -213,8 +237,7 @@
 	   #:concatenated-stream-streams #:condition #:conjugate #:cons
 	   #:constantly #:constantp #:continue #:control-error #:copy-alist #:copy-list
 	   #:copy-pprint-dispatch #:copy-readtable #:copy-seq #:copy-structure
-	   #:copy-symbol #:copy-tree #:cos #:cosh #:count #:count-if
-	   #:ctypecase)
+	   #:copy-symbol #:copy-tree #:cos #:cosh #:count #:count-if)
   (:export #:debug #:declaim #:declaration #:declare #:decode-float
 	   #:decode-universal-time
 
@@ -228,9 +251,9 @@
 	   #:do-all-symbols #:do-external-symbols #:do-symbols #:documentation #:dolist
 	   #:dotimes #:double-float #:double-float-epsilon
 	   #:double-float-negative-epsilon #:dpb #:dribble #:dynamic-extent)
-  (:export #:ecase #:echo-stream #:echo-stream-input-stream #:echo-stream-output-stream #:ed
+  (:export #:echo-stream #:echo-stream-input-stream #:echo-stream-output-stream #:ed
 	   #:eighth #:elt #:encode-universal-time #:end-of-file #:enough-namestring
-	   #:ensure-directories-exist #:ensure-generic-function #:error #:etypecase
+	   #:ensure-directories-exist #:ensure-generic-function #:error
 	   #:eval #:eval-when #:every #:exp #:export #:expt #:extended-char)
   (:export #:fceiling #:fdefinition #:ffloor #:fifth #:file-author #:file-error
 	   #:file-error-pathname #:file-length #:file-namestring #:file-position
@@ -351,8 +374,7 @@
 	   #:third #:throw #:time #:trace #:translate-logical-pathname
 	   #:translate-pathname #:tree-equal #:truename #:truncate #:two-way-stream
 	   #:two-way-stream-input-stream #:two-way-stream-output-stream #:type
-	   #:type-error #:type-error-datum #:type-error-expected-type #:type-of
-	   #:typecase)
+	   #:type-error #:type-error-datum #:type-error-expected-type #:type-of)
   (:export #:unbound-slot #:unbound-slot-instance #:unbound-variable
 	   #:undefined-function #:unexport #:unintern #:union #:unless #:unread-char
 	   #:unsigned-byte #:untrace #:unuse-package #:unwind-protect

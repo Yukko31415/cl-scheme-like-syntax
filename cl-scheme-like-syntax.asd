@@ -17,6 +17,7 @@
 			     (:file "predicates")
 			     (:file "places")
 			     (:file "bangs")
+			     (:file "control-flow")
 			     (:file "compatibility")
 			     (:file "number")
 			     (:file "srfis")))))
