@@ -89,7 +89,8 @@
   (:shadow #:cond
 	   #:case #:ccase #:ecase
 	   #:typecase #:ctypecase #:etypecase)
-  (:export #:case
+  (:export #:and-let*
+	   #:case
 	   #:ccase
 	   #:cond
 	   #:ctypecase
@@ -97,7 +98,9 @@
 	   #:etypecase
 	   #:if-let
 	   #:if-let*
-	   #:typecase))
+	   #:typecase
+	   #:when-let
+	   #:when-let*))
 
 
 
