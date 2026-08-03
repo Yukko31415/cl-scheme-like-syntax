@@ -7,14 +7,14 @@
 
 
 (uiop:define-package #:cl-scheme-like-syntax.internal
-  (:use #:cl 
-	#:trivial-indent)
+  (:use #:trivial-indent 
+	#:cl)
   (:export #:alias #:aliases #:with-inline))
 
 
 (uiop:define-package #:cl-scheme-like-syntax/predicates
-  (:use #:cl
-	#:cl-scheme-like-syntax.internal)
+  (:use #:cl-scheme-like-syntax.internal
+	#:cl)
   (:shadow #:defstruct)
   (:export #:cons? #:list? #:end? #:tail? #:subset? #:null? #:atom?)
   (:export #:readtable?)
@@ -53,9 +53,9 @@
 
 
 (uiop:define-package #:cl-scheme-like-syntax/places
-  (:mix #:cl
-	#:cl-scheme-like-syntax.internal
-	#:cl-scheme-like-syntax/predicates)
+  (:mix #:cl-scheme-like-syntax.internal
+	#:cl-scheme-like-syntax/predicates
+	#:cl)
   (:shadow #:defun
 	   #:defmethod)
   (:export #:rem@ #:get@ #:rotate@ #:dec@ #:inc@
@@ -65,8 +65,8 @@
 
 
 (uiop:define-package #:cl-scheme-like-syntax/bangs
-  (:use #:cl
-	#:cl-scheme-like-syntax.internal)
+  (:use #:cl-scheme-like-syntax.internal
+	#:cl)
   (:export #:vector-pop! #:vector-push!)
   (:export #:set-car! #:set-cdr! #:sublis! #:subst! #:subst-if!
 	   #:append! #:revappend! #:butlast! #:intersection!
@@ -156,7 +156,6 @@
 	#:cl-scheme-like-syntax/bangs
 	#:cl-scheme-like-syntax/compatibility
 	#:cl-scheme-like-syntax/control-flow
-	#:uiop
 	#:cl)
   (:export #:number->string #:string->number))
 
