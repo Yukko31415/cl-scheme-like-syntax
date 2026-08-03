@@ -53,22 +53,23 @@
 
 
 (defun %make-and-let* (clauses forms)
-  (cond ((null? clauses) forms)
-	((symbol? (car clauses))
-	 (list `(when ,(car clauses)
-		  ,@(%make-and-let* (cdr clauses) forms))))
-	((list? (car (car clauses)))
-	 (list `(when ,(car (car clauses))
-		  ,@(%make-and-let* (cdr clauses) forms))))
-	((symbol? (car (car clauses)))
-	 (list `(when-let ,(car clauses)
-		  ,@(%make-and-let* (cdr clauses) forms))))))
+  (if (null? clauses) forms
+      (if (symbol? (car clauses))
+	  (list `(when ,(car clauses)
+		   ,@(%make-and-let* (cdr clauses) forms)))
+	  (if (list? (car (car clauses)))
+	      (list `(when ,(car (car clauses))
+		       ,@(%make-and-let* (cdr clauses) forms)))
+	      (if (symbol? (car (car clauses)))
+		  (list `(when-let ,(car clauses)
+			   ,@(%make-and-let* (cdr clauses) forms))))))))
 
 (defmacro and-let* (clauses &body forms)
   "and-let* ({!clause}*) {form}* => {result}*
    clause ::= (var [init-form]) | predicate | var"
   (check-type clauses list)
   (car (%make-and-let* clauses forms)))
+
 
 
 
@@ -99,6 +100,8 @@
   "cond {!clause}* => {result}*
    clause ::= (test-form {form}*) | (test-form => function) | (else {form}*)"
   (%make-cond clauses))
+
+
 
 
 
