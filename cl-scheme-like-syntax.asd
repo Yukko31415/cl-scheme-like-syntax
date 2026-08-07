@@ -19,5 +19,6 @@
 			     (:file "bangs")
 			     (:file "control-flow")
 			     (:file "compatibility")
+			     (:file "string")
 			     (:file "number")
 			     (:file "srfis")))))
