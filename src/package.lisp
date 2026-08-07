@@ -83,8 +83,8 @@
 (uiop:define-package #:cl-scheme-like-syntax/control-flow
   (:mix #:cl-scheme-like-syntax.internal
 	#:cl-scheme-like-syntax/predicates
-	#:cl-scheme-like-syntax/bangs
 	#:cl-scheme-like-syntax/places
+	#:cl-scheme-like-syntax/bangs
 	#:cl)
   (:shadow #:cond
 	   #:case #:ccase #:ecase
@@ -103,15 +103,13 @@
 	   #:when-let*))
 
 
-
 (uiop:define-package #:cl-scheme-like-syntax/compatibility
   (:mix #:cl-scheme-like-syntax.internal
 	#:cl-scheme-like-syntax/predicates
-	#:cl-scheme-like-syntax/bangs
 	#:cl-scheme-like-syntax/places
+	#:cl-scheme-like-syntax/bangs
 	#:cl-scheme-like-syntax/control-flow
 	#:cl)
-  (:shadow #:string)
   (:export #:alist->hash-table
 	   #:array-flat-ref
 	   #:array-ref
@@ -134,8 +132,6 @@
 	   #:name->char
 	   #:prog1-with-values
 	   #:setq-with-values!
-	   #:string
-	   #:string*
 	   #:string->list
 	   #:string->symbol
 	   #:string->vector
@@ -149,24 +145,46 @@
 	   #:vector-ref))
 
 
-(uiop:define-package #:cl-scheme-like-syntax/number
-  (:mix #:cl-scheme-like-syntax/compatibility
+(uiop:define-package #:cl-scheme-like-syntax/string
+  (:mix #:cl-scheme-like-syntax.internal
+	#:cl-scheme-like-syntax/predicates
 	#:cl-scheme-like-syntax/places
+	#:cl-scheme-like-syntax/bangs
+	#:cl-scheme-like-syntax/control-flow
+	#:cl-scheme-like-syntax/compatibility
+	#:cl)
+  (:shadow #:string
+	   #:string-trim #:string-right-trim #:string-left-trim
+	   #:string-upcase #:string-downcase #:string-capitalize)
+  (:export #:string
+	   #:string*
+	   #:string-trim
+	   #:string-right-trim
+	   #:string-left-trim
+	   #:string-upcase
+	   #:string-downcase
+	   #:string-capitalize))
+
+
+(uiop:define-package #:cl-scheme-like-syntax/number
+  (:mix #:cl-scheme-like-syntax/places
 	#:cl-scheme-like-syntax/predicates
 	#:cl-scheme-like-syntax/bangs
 	#:cl-scheme-like-syntax/compatibility
 	#:cl-scheme-like-syntax/control-flow
+	#:cl-scheme-like-syntax/compatibility
+	#:cl-scheme-like-syntax/string
 	#:cl)
   (:export #:number->string #:string->number))
 
 
-
 (uiop:define-package #:cl-scheme-like-syntax/srfis
-  (:mix #:cl-scheme-like-syntax/compatibility
+  (:mix #:cl-scheme-like-syntax/predicates
 	#:cl-scheme-like-syntax/places
-	#:cl-scheme-like-syntax/predicates
 	#:cl-scheme-like-syntax/bangs
 	#:cl-scheme-like-syntax/control-flow
+	#:cl-scheme-like-syntax/compatibility
+	#:cl-scheme-like-syntax/string
 	#:trivial-indent
 	#:cl)
   (:export #:cut #:cute #:string-compare))
@@ -182,6 +200,7 @@
 	#:cl-scheme-like-syntax/number
 	#:cl-scheme-like-syntax/srfis
 	#:cl-scheme-like-syntax/control-flow
+	#:cl-scheme-like-syntax/string
 	#:cl)
   (:reexport #:cl-scheme-like-syntax/predicates
 	     #:cl-scheme-like-syntax/places
@@ -189,7 +208,8 @@
 	     #:cl-scheme-like-syntax/compatibility
 	     #:cl-scheme-like-syntax/number
 	     #:cl-scheme-like-syntax/srfis
-	     #:cl-scheme-like-syntax/control-flow)
+	     #:cl-scheme-like-syntax/control-flow
+	     #:cl-scheme-like-syntax/string)
 
   (:export #:&allow-other-keys #:&aux #:&body #:&environment
 	   #:&key #:&optional #:&rest #:&whole)
@@ -361,8 +381,7 @@
 	   #:storage-condition #:store-value #:stream #:stream-element-type
 	   #:stream-error #:stream-error-stream #:stream-external-format
 
-	   #:string-capitalize #:string-downcase #:string-left-trim
-	   #:string-right-trim #:string-stream #:string-trim #:string-upcase
+	   #:string-stream
 
 	   #:structure #:structure-class #:structure-object #:style-warning
 

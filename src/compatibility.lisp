@@ -12,24 +12,6 @@
 ;; ---------------
 
 
-;;
-;; string, string*
-
-
-(defun string (&rest char)
-  "string &rest char => string"
-  (the simple-string (list->string char)))
-
-(defun string* (stringable)
-  (cl:string stringable))
-
-(deftype string (&optional size)
-  (if size
-      `(cl:string ,size)
-      'cl:string))
-
-(set@ (documentation 'string* 'function) (documentation 'cl:string 'function))
-
 
 ;; 
 ;; char->integer, integer-char
