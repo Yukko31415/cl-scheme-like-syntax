@@ -52,17 +52,21 @@
 	 ,@forms))))
 
 
+;; condがshadowされているので、blockとwhen, returnで代用
+
 (defun %make-and-let* (clauses forms)
-  (if (null? clauses) forms
-      (if (symbol? (car clauses))
-	  (list `(when ,(car clauses)
-		   ,@(%make-and-let* (cdr clauses) forms)))
-	  (if (list? (car (car clauses)))
-	      (list `(when ,(car (car clauses))
-		       ,@(%make-and-let* (cdr clauses) forms)))
-	      (if (symbol? (car (car clauses)))
-		  (list `(when-let ,(car clauses)
-			   ,@(%make-and-let* (cdr clauses) forms))))))))
+  (block nil
+    (when (null? clauses)
+      (return forms))
+    (when (symbol? (car clauses))
+      (return (list `(when ,(car clauses)
+		       ,@(%make-and-let* (cdr clauses) forms)))))
+    (when (list? (car (car clauses)))
+      (return (list `(when ,(car (car clauses))
+		       ,@(%make-and-let* (cdr clauses) forms)))))
+    (when (symbol? (car (car clauses)))
+      (return (list `(when-let ,(car clauses)
+		       ,@(%make-and-let* (cdr clauses) forms)))))))
 
 (defmacro and-let* (clauses &body forms)
   "and-let* ({!clause}*) {form}* => {result}*
