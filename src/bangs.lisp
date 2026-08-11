@@ -87,9 +87,8 @@
 ;; --------------------------
 
 
-(aliases (remove-hash! . remhash)
-	 (clear-hash!  . clrhash))
-
+(aliases (hash-table-remove! . remhash)
+	 (hash-table-clear!  . clrhash))
 
 
 

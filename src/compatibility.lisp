@@ -239,6 +239,12 @@
   (set-cdr! (nthcdr (1- index) list) object))
 
 
+;;
+;; hash-table-ref, hash-table-map
+
+
+(aliases (hash-table-ref . gethash))
+
 
 
 

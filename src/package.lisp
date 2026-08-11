@@ -75,7 +75,7 @@
   (:export #:remove-prop! #:make-unbound! #:set!)
   (:export #:fill! #:map! #:reverse! #:replace! #:substitute!
 	   #:substitute-if! #:merge! #:remove! #:remove-if! #:remove-duplicates!)
-  (:export #:remove-hash! #:clear-hash!)
+  (:export #:hash-table-remove! #:hash-table-clear!)
   (:export #:make-function-unbound! #:setq! #:psetq!))
 
 
@@ -121,6 +121,7 @@
 	   #:char-encode
 	   #:code->char
 	   #:hash-table->alist
+	   #:hash-table-ref
 	   #:integer->char
 	   #:let*-values
 	   #:let-values
