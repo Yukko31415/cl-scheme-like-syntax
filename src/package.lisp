@@ -291,7 +291,7 @@
   (:export #:gcd #:generic-function #:gensym #:gentemp #:get #:get-decoded-time
 	   #:get-dispatch-macro-character #:get-internal-real-time
 	   #:get-internal-run-time #:get-macro-character #:get-output-stream-string
-	   #:get-properties #:get-universal-time #:gethash #:go)
+	   #:get-properties #:get-universal-time #:go)
   (:export #:handler-bind #:handler-case #:hash-table #:hash-table-count
 	   #:hash-table-rehash-size #:hash-table-rehash-threshold #:hash-table-size
 	   #:hash-table-test #:host-namestring)
