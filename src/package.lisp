@@ -133,6 +133,7 @@
 	   #:name->char
 	   #:prog1-with-values
 	   #:setq-with-values!
+	   #:slot-ref
 	   #:string->list
 	   #:string->symbol
 	   #:string->vector
@@ -375,7 +376,7 @@
 	   #:simple-condition-format-control #:simple-error #:simple-string
 	   #:simple-type-error #:simple-vector #:simple-warning #:sin #:single-float
 	   #:single-float-epsilon #:single-float-negative-epsilon #:sinh #:sixth #:sleep
-	   #:slot-makunbound #:slot-missing #:slot-unbound #:slot-value #:software-type
+	   #:slot-makunbound #:slot-missing #:slot-unbound #:software-type
 	   #:software-version #:some #:sort #:space #:special #:special-operator-p
 	   #:speed #:sqrt #:stable-sort #:standard #:standard-char #:standard-class
 	   #:standard-generic-function #:standard-method #:standard-object #:step

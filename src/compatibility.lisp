@@ -243,8 +243,18 @@
 ;; hash-table-ref, hash-table-map
 
 
-(aliases (hash-table-ref . gethash))
+(alias hash-table-ref gethash)
 
+
+;;
+;; slot-ref
+
+
+(alias slot-ref slot-value)
+
+(set@ (documentation 'slot-ref 'function)
+      "slot-ref object slot-name => valuxe
+   name = a symbol.")
 
 
 
