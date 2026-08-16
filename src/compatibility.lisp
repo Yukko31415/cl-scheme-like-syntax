@@ -242,8 +242,11 @@
 ;;
 ;; hash-table-ref, hash-table-map
 
+(defun hash-table-ref (hash-table key &optional default)
+  (gethash key hash-table default))
 
-(alias hash-table-ref gethash)
+(defun (set@ hash-table-ref) (obj hash-table key &optional default)
+  (set@ (gethash key hash-table default) obj))
 
 
 ;;
