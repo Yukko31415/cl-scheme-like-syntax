@@ -339,7 +339,7 @@
 	   #:multiple-values-limit)
   (:export #:namestring #:next-method-p #:nil #:ninth #:no-applicable-method #:no-next-method #:not
 	   #:notany #:notevery #:notinline
-	   #:nth-value #:number #:numerator)
+	   #:nth-value #:null #:number #:numerator)
   (:export #:open #:optimize #:or #:otherwise #:output-stream-p)
   (:export #:package #:package-error #:package-error-package
 	   #:package-name #:package-nicknames #:package-shadowing-symbols
