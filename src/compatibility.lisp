@@ -255,6 +255,9 @@
 
 (alias slot-ref slot-value)
 
+(defun (set@ slot-ref) (obj object slot-name)
+  (set@ (slot-value object slot-name) obj))
+
 (set@ (documentation 'slot-ref 'function)
       "slot-ref object slot-name => valuxe
    name = a symbol.")
