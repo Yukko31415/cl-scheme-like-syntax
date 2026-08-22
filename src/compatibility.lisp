@@ -249,6 +249,12 @@
   (set@ (gethash key hash-table default) obj))
 
 
+(with-inline
+ (defun hash-table-map (function-designator hash-table)
+   "hash-table-map fn hash-table => nil"
+   (maphash function-designator hash-table)))
+
+
 ;;
 ;; slot-ref
 
