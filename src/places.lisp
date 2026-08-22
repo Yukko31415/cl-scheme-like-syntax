@@ -28,7 +28,7 @@
 	 (pset@     . psetf)
 	 (push@     . push)
 	 (pop@      . pop)
-	 (pushnew@  . pop)
+	 (pushnew@  . pushnew)
 	 
 	 (defset@   . defsetf)
 	 (get-set@-expansion   . get-setf-expansion)
