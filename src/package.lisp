@@ -193,10 +193,6 @@
   (:export #:cut #:cute #:string-compare))
 
 
-(uiop:define-package #:cl-scheme-like-syntax.internal/common-lisp
-  (:use #:cl))
-
-
 (uiop:define-package #:cl-scheme-like-syntax
   (:documentation "The cl-scheme-like-syntax package.")
   (:mix-reexport #:cl-scheme-like-syntax/predicates

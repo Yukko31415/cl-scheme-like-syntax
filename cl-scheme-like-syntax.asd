@@ -12,7 +12,8 @@
   :depends-on  ("trivial-indent")
   :serial t
   :components ((:module "src"
-		:components ((:file "package")
+		:components ((:file "common-lisp")
+			     (:file "package")
 			     (:file "internal")
 			     (:file "predicates")
 			     (:file "places")

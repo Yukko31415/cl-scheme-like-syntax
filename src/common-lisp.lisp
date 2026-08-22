@@ -1,4 +1,7 @@
 
+(uiop:define-package #:cl-scheme-like-syntax.internal/common-lisp
+  (:use #:cl))
+
 
 (in-package #:cl-scheme-like-syntax.internal/common-lisp)
 
