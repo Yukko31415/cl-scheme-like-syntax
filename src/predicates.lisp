@@ -171,7 +171,7 @@
 (aliases (string? . stringp)
 
 	 (string*=?            . string=)
-	 (string*-equal?       . string-equal?)
+	 (string*-equal?       . string-equal)
 	 (string*/=?           . string/=)
 	 (string*-not-equal?   . string-not-equal)
 	 (string*<?            . string<)
