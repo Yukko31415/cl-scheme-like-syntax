@@ -121,6 +121,7 @@
 	   #:char-encode
 	   #:code->char
 	   #:hash-table->alist
+	   #:hash-table-map
 	   #:hash-table-ref
 	   #:integer->char
 	   #:let*-values
