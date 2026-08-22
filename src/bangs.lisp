@@ -5,18 +5,37 @@
 
 
 
-;; ---------------------
-;;;; Arrays Dictionary
-;; ---------------------
+;; ---------------------------------------
+;;;; 3. Data and Control Flow Dictionary
+;; ---------------------------------------
 
 
-(aliases (vector-pop!  . vector-pop)
-	 (vector-push! . vector-push))
+;; `setq'は specil operator なので、エイリアスを登録することができない
+;; マクロとして登録することは可能だが、あまり行儀のいい方法ではないか？
+
+(alias make-function-unbound! fmakunbound)
+
+(defmacro setq! (&rest things)
+  `(cl:setq ,@things))
+
+(defmacro psetq! (&rest pairs)
+  `(cl:psetq ,@pairs))
 
 
-;; ---------------------
-;;;; Conses Dictionary
-;; ---------------------
+
+;; -------------------------
+;;;; 8. Symbols Dictionary
+;; -------------------------
+
+
+(aliases (remove-prop!    . remprop)
+	 (make-unbound!   . makunbound)
+	 (set!            . set))
+
+
+;; ------------------------
+;;;; 12. Conses Dictionary
+;; ------------------------
 
 
 (aliases (set-car!    . rplaca)
@@ -36,10 +55,19 @@
 
 
 
+;; ------------------------
+;;;; 13. Arrays Dictionary
+;; ------------------------
 
-;; ----------------------
-;;;; Strings Dictionary
-;; ----------------------
+
+(aliases (vector-pop!  . vector-pop)
+	 (vector-push! . vector-push))
+
+
+
+;; -------------------------
+;;;; 14. Strings Dictionary
+;; -------------------------
 
 
 (aliases (string-upcase!     . nstring-upcase)
@@ -47,24 +75,9 @@
 	 (string-capitalize! . nstring-capitalize))
 
 
-
-
-
-;; ----------------------
-;;;; Symbols Dictionary
-;; ----------------------
-
-
-(aliases (remove-prop!    . remprop)
-	 (make-unbound!   . makunbound)
-	 (set!            . set))
-
-
-
-
-;; ------------------------
-;;;; Sequences Dictionary
-;; ------------------------
+;; ---------------------------
+;;;; 15. Sequences Dictionary
+;; ---------------------------
 
 
 (aliases (fill!              . fill)
@@ -80,36 +93,13 @@
 
 
 
-
-
-;; --------------------------
-;;;; Hash Tables Dictionary
-;; --------------------------
+;; -----------------------------
+;;;; 16. Hash Tables Dictionary
+;; -----------------------------
 
 
 (aliases (hash-table-remove! . remhash)
 	 (hash-table-clear!  . clrhash))
-
-
-
-;; ------------------------------------
-;;;; Data and Control Flow Dictionary
-;; ------------------------------------
-
-
-;; `setq'は specil operator なので、エイリアスを登録することができない
-;; マクロとして登録することは可能だが、あまり行儀のいい方法ではないか？
-
-(alias make-function-unbound! fmakunbound)
-
-(defmacro setq! (&rest things)
-  `(cl:setq ,@things))
-
-(defmacro psetq! (&rest pairs)
-  `(cl:psetq ,@pairs))
-
-
-
 
 
 
