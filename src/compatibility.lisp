@@ -5,8 +5,6 @@
 
 
 
-
-
 ;; ---------------
 ;;;; conversions
 ;; ---------------
@@ -118,6 +116,7 @@
 ;;
 ;; name->char, char->name
 
+
 (aliases (name->char . name-char)
 	 (char->name . char-name))
 
@@ -198,6 +197,7 @@
 
 ;;
 ;; vector-ref
+
 
 (defun vector-ref (vector index)
   "vector-ref vector index => element"
@@ -396,6 +396,7 @@
 		       :for s :in strings
 		       :do (replace! result s :start1 offset))
 		 result))))
+
 
 
 
