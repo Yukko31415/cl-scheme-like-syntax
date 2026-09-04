@@ -221,6 +221,7 @@
 
 (uiop:define-package #:cl-scheme-like-syntax
   (:documentation "The cl-scheme-like-syntax package.")
+  (:nicknames #:cl-sls)
   (:mix-reexport #:cl-scheme-like-syntax/predicates
 		 #:cl-scheme-like-syntax/places
 		 #:cl-scheme-like-syntax/bangs
