@@ -16,27 +16,27 @@
   (:use #:cl-scheme-like-syntax.internal
 	#:cl)
   (:shadow #:defstruct)
-  (:export #:cons? #:list? #:end? #:tail? #:subset? #:null? #:atom?)
-  (:export #:readtable?)
-  (:export #:minus? #:plus? #:odd? #:even?
-	   #:zero? #:random-state? #:number? #:complex?
-	   #:real? #:rational? #:integer? #:logbit? #:float?)
+  ;; 1. Evaluation and Compilation Dictionary
+  (:export #:special-operator? #:constant?)
+  ;; 2. Types and Classes Dictionary
+  (:export #:subtype? #:type?)
+  ;; 3. Data and Control Flow Dictionary
+  (:export #:fbound? #:function? #:compiled-function?
+	   #:eq? #:eql? #:equal? #:equalp?)
+  ;; 5. Objects Dictionary
   (:export #:slot-bound? #:slot-exists?)
-  (:export #:input-stream? #:interactive-stream?
-	   #:open-stream? #:stream? #:yes-or-no? #:y-or-n?)
-  (:export #:simple-string? #:string=? #:string-equal?
-	   #:string? #:string/=? #:string-not-equal? #:string<?
-	   #:string-less? #:string>? #:string-greater?
-	   #:string<=? #:string-not-greater? #:string>=? #:string-not-less?)
+  ;; 8. Symbols Dictionary
+  (:export #:symbol? #:keyword? #:bound?)
   (:export #:symbol=? #:symbol-equal? #:symbol/=? #:symbol-not-equal? #:symbol<?
 	   #:symbol-less? #:symbol>? #:symbol-greater? #:symbol<=? #:symbol-not-greater?
 	   #:symbol>=? #:symbol-not-less?)
-  (:export #:string*=? #:string*-equal? #:string*/=? #:string*-not-equal?
-	   #:string*<? #:string*-less? #:string*>? #:string*-greater?
-	   #:string*<=? #:string*-not-greater? #:string*>=? #:string*-not-less?)
-  (:export #:symbol? #:keyword? #:bound?)
+  ;; 9. Packages Dictionary
   (:export #:package?)
-  (:export #:pathname? #:wild-pathname? #:pathname-match?)
+  ;; 10. Numbers Dictionary
+  (:export #:minus? #:plus? #:odd? #:even?
+	   #:zero? #:random-state? #:number? #:complex?
+	   #:real? #:rational? #:integer? #:logbit? #:float?)
+  ;; 11. Characters Dictionary
   (:export #:char? #:char-alphabetic? #:char-lower-case?
 	   #:char-upper-case? #:char-alphanumeric?
 	   #:char-both-case? #:char-graphic? #:char-standard?
@@ -44,10 +44,29 @@
 	   #:char>=? #:char-equal? #:char-not-equal? #:char-less?
 	   #:char-greater? #:char-not-greater? #:char-not-less?
 	   #:digit-char? #:char-whitespace? #:char-numeric?)
+  ;; 12. Conses Dictionary
+  (:export #:cons? #:list? #:end? #:tail? #:subset? #:null? #:atom?)
+  ;; 13. Arrays Dictionary
+  (:export #:adjustable-array? #:array-has-fill-pointer? #:array-in-bounds? #:array?
+	   #:simple-vector? #:vector? #:bit-vector? #:simple-bit-vector?)
+  ;; 14. Strings Dictionary
+  (:export #:simple-string? #:string=? #:string-equal?
+	   #:string? #:string/=? #:string-not-equal? #:string<?
+	   #:string-less? #:string>? #:string-greater?
+	   #:string<=? #:string-not-greater? #:string>=? #:string-not-less?)
+  (:export #:string*=? #:string*-equal? #:string*/=? #:string*-not-equal?
+	   #:string*<? #:string*-less? #:string*>? #:string*-greater?
+	   #:string*<=? #:string*-not-greater? #:string*>=? #:string*-not-less?)
+  ;; 16. Hash Tables Dictionary
   (:export #:hash-table?)
-  (:export #:subtype? #:type?)
-  (:export #:fbound? #:function? #:compiled-function?
-	   #:eq? #:eql? #:equal? #:equalp?)
+  ;; 17. Filenames Dictionary
+  (:export #:pathname? #:wild-pathname? #:pathname-match?)
+  ;; 19. Streams Dictionary
+  (:export #:input-stream? #:interactive-stream?
+	   #:open-stream? #:stream? #:yes-or-no? #:y-or-n?)
+  ;; 21. Reader Dictionary
+  (:export #:readtable?)
+  ;; defstruct
   (:export #:defstruct))
 
 
