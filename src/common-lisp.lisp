@@ -46,6 +46,9 @@
    special-operator-p
    constantp))
 
+(unexport
+ '(special-operator-p
+   constantp))
 
 
 
@@ -841,6 +844,14 @@
  '(nth
    nthcdr))
 
+(unexport
+ '(subst-if-not
+   nsubst-if-not 
+   member-if-not
+   assoc-if-not
+   rassoc-if-not))
+
+
 
 ;; ------------------------
 ;;;; 13. Array Dictionary
@@ -1050,6 +1061,15 @@
    delete
    delete-if
    delete-duplicates))
+
+(unexport
+ '(count-if-not
+   find-if-not
+   position-if-not
+   substitute-if-not
+   nsubstitute-if-not
+   remove-if-not
+   delete-if-not))
 
 
 ;; ------------------------------
