@@ -181,12 +181,18 @@
 	   #:string-upcase #:string-downcase #:string-capitalize)
   (:export #:string
 	   #:string*
-	   #:string-trim
-	   #:string-right-trim
-	   #:string-left-trim
-	   #:string-upcase
+	   #:string*-capitalize
+	   #:string*-downcase
+	   #:string*-left-trim
+	   #:string*-right-trim
+	   #:string*-trim
+	   #:string*-upcase
+	   #:string-capitalize
 	   #:string-downcase
-	   #:string-capitalize))
+	   #:string-left-trim
+	   #:string-right-trim
+	   #:string-trim
+	   #:string-upcase))
 
 
 (uiop:define-package #:cl-scheme-like-syntax/number
