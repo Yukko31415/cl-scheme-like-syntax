@@ -119,7 +119,8 @@
 	   #:if-let*
 	   #:typecase
 	   #:when-let
-	   #:when-let*))
+	   #:when-let*)
+  (:export #:else #:=>))
 
 
 (uiop:define-package #:cl-scheme-like-syntax/compatibility
