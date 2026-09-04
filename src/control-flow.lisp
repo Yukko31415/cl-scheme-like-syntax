@@ -122,13 +122,12 @@
 
 
 (defun %make-case (clauses key &optional otherwise-clause?)
-  (flet ((%symbol=? (symbol1 symbol2) (and (symbol? symbol1) (symbol=? symbol1 symbol2))))
-    (loop :for (keys . forms) :in clauses
-	  :if (and otherwise-clause? (%symbol=? keys 'else))
-	    :do (set@ keys 't)
-	  :if (%symbol=? (car forms) '=>)
-	    :do (set@ forms (list `(funcall ,(second forms) ,key)))
-	  :collect (cons keys forms))))
+  (loop :for (keys . forms) :in clauses
+	:if (and otherwise-clause? (eql keys 'else))
+	  :do (set@ keys 't)
+	:if (eql (car forms) '=>)
+	  :do (set@ forms (list `(funcall ,(second forms) ,key)))
+	:collect (cons keys forms)))
 
 
 (defmacro case (keyform &rest cases)
