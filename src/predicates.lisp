@@ -23,6 +23,14 @@
 ;; --------------
 
 
+;;
+;; 1. Evaluation and Compilation Dictionary
+
+
+(aliases (special-operator? . special-operator-p)
+	 (constant?         . constantp))
+
+
 
 ;;
 ;; 2. Types and Classes Dictionary
@@ -63,6 +71,74 @@
 (aliases (symbol?  . symbolp)
 	 (keyword? . keywordp)
 	 (bound?   . boundp))
+
+
+(with-inline
+
+ (defun symbol=? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol=? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (string= symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2))
+
+ (defun symbol-equal? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol-epual symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (string-equal symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2))
+
+
+ (defun symbol/=? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol/=? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string/= symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun symbol-not-equal? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol-not-epual symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string-not-equal symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+
+ (defun symbol<? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol<? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string< symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun symbol-less? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol-less? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string-lessp symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+
+ (defun symbol>? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol>? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string> symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun symbol-greater? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol-greater? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string-greaterp symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+
+ (defun symbol<=? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol<=?  symbol1  symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string<= symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun symbol-not-greater? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol-not-grater?  symbol1  symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string-not-greaterp symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+
+ (defun symbol>=? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol>=?  symbol1  symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string>= symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
+
+ (defun symbol-not-less? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
+   "symbol-not-less?  symbol1  symbol2 &key start1 end1 start2 end2 => boolean"
+   (declare (symbol symbol1 symbol2))
+   (when (string-not-lessp symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t)))
 
 
 ;;
@@ -252,72 +328,7 @@
    (when (string-not-lessp string1 string2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t)))
 
 
-(with-inline
 
- (defun symbol=? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
-   "symbol=? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
-   (declare (symbol symbol1 symbol2))
-   (string= symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2))
-
- (defun symbol-equal? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
-   "symbol-epual symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
-   (declare (symbol symbol1 symbol2))
-   (string-equal symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2))
-
-
- (defun symbol/=? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
-   "symbol/=? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
-   (declare (symbol symbol1 symbol2))
-   (when (string/= symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
-
- (defun symbol-not-equal? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
-   "symbol-not-epual symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
-   (declare (symbol symbol1 symbol2))
-   (when (string-not-equal symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
-
-
- (defun symbol<? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
-   "symbol<? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
-   (declare (symbol symbol1 symbol2))
-   (when (string< symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
-
- (defun symbol-less? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
-   "symbol-less? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
-   (declare (symbol symbol1 symbol2))
-   (when (string-lessp symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
-
-
- (defun symbol>? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
-   "symbol>? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
-   (declare (symbol symbol1 symbol2))
-   (when (string> symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
-
- (defun symbol-greater? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
-   "symbol-greater? symbol1 symbol2 &key start1 end1 start2 end2 => boolean"
-   (declare (symbol symbol1 symbol2))
-   (when (string-greaterp symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
-
-
- (defun symbol<=? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
-   "symbol<=?  symbol1  symbol2 &key start1 end1 start2 end2 => boolean"
-   (declare (symbol symbol1 symbol2))
-   (when (string<= symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
-
- (defun symbol-not-greater? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
-   "symbol-not-grater?  symbol1  symbol2 &key start1 end1 start2 end2 => boolean"
-   (declare (symbol symbol1 symbol2))
-   (when (string-not-greaterp symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
-
-
- (defun symbol>=? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
-   "symbol>=?  symbol1  symbol2 &key start1 end1 start2 end2 => boolean"
-   (declare (symbol symbol1 symbol2))
-   (when (string>= symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t))
-
- (defun symbol-not-less? (symbol1 symbol2 &key (start1 0) end1 (start2 0) end2)
-   "symbol-not-less?  symbol1  symbol2 &key start1 end1 start2 end2 => boolean"
-   (declare (symbol symbol1 symbol2))
-   (when (string-not-lessp symbol1 symbol2 :start1 start1 :end1 end1 :start2 start2 :end2 end2) t)))
 
 
 
@@ -358,8 +369,6 @@
 
 
 
-
-
 ;;
 ;; defstruct
 
@@ -394,4 +403,5 @@
 	   `(cl:defstruct ,name-and-options ,@slot-descriptions)))))
 
 (setf (documentation 'defstruct 'function) (documentation 'cl:defstruct 'function))
+
 
