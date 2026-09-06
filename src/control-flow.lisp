@@ -70,7 +70,9 @@
 
 (defmacro and-let* (clauses &body forms)
   "and-let* ({!clause}*) {form}* => {result}*
-   clause ::= (var [init-form]) | predicate | var"
+   clause ::= (var [init-form]) | predicate | var
+   predicate = a form.
+   var = a non-nil symbol."
   (check-type clauses list)
   (car (%make-and-let* clauses forms)))
 
