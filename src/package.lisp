@@ -6,14 +6,8 @@
 
 
 
-(uiop:define-package #:cl-scheme-like-syntax.internal
-  (:use #:trivial-indent 
-	#:cl)
-  (:export #:alias #:aliases #:with-inline))
-
-
 (uiop:define-package #:cl-scheme-like-syntax/predicates
-  (:use #:cl-scheme-like-syntax.internal
+  (:use #:cl-scheme-like-syntax.internal/core
 	#:cl)
   (:shadow #:defstruct)
   ;; 1. Evaluation and Compilation Dictionary
@@ -72,19 +66,17 @@
 
 
 (uiop:define-package #:cl-scheme-like-syntax/places
-  (:mix #:cl-scheme-like-syntax.internal
+  (:mix #:cl-scheme-like-syntax.internal/core
 	#:cl-scheme-like-syntax/predicates
 	#:cl)
-  (:shadow #:defun
-	   #:defmethod)
   (:export #:rem@ #:get@ #:rotate@ #:dec@ #:inc@
 	   #:shift@ #:set@ #:pset@ #:push@ #:pop@ #:pushnew@
-	   #:defset@ #:get-set@-expansion #:define-set@-expander)
-  (:export #:defun #:defmethod))
+	   #:defset@ #:get-set@-expansion #:define-set@-expander))
+
 
 
 (uiop:define-package #:cl-scheme-like-syntax/bangs
-  (:use #:cl-scheme-like-syntax.internal
+  (:use #:cl-scheme-like-syntax.internal/core
 	#:cl)
   (:export #:vector-pop! #:vector-push!)
   (:export #:set-car! #:set-cdr! #:sublis! #:subst! #:subst-if!
@@ -100,7 +92,7 @@
 
 
 (uiop:define-package #:cl-scheme-like-syntax/control-flow
-  (:mix #:cl-scheme-like-syntax.internal
+  (:mix #:cl-scheme-like-syntax.internal/core
 	#:cl-scheme-like-syntax/predicates
 	#:cl-scheme-like-syntax/places
 	#:cl-scheme-like-syntax/bangs
@@ -123,8 +115,9 @@
   (:export #:else #:=>))
 
 
+
 (uiop:define-package #:cl-scheme-like-syntax/compatibility
-  (:mix #:cl-scheme-like-syntax.internal
+  (:mix #:cl-scheme-like-syntax.internal/core
 	#:cl-scheme-like-syntax/predicates
 	#:cl-scheme-like-syntax/places
 	#:cl-scheme-like-syntax/bangs
@@ -169,7 +162,7 @@
 
 
 (uiop:define-package #:cl-scheme-like-syntax/string
-  (:mix #:cl-scheme-like-syntax.internal
+  (:mix #:cl-scheme-like-syntax.internal/core
 	#:cl-scheme-like-syntax/predicates
 	#:cl-scheme-like-syntax/places
 	#:cl-scheme-like-syntax/bangs
@@ -217,6 +210,9 @@
 	#:trivial-indent
 	#:cl)
   (:export #:cut #:cute #:string-compare))
+
+
+
 
 
 (uiop:define-package #:cl-scheme-like-syntax

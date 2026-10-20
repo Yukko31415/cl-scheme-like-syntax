@@ -11,15 +11,19 @@
   :version     "0.1.0"
   :depends-on  ("trivial-indent")
   :serial t
-  :components ((:module "src"
-		:components ((:file "common-lisp")
-			     (:file "package")
-			     (:file "internal")
-			     (:file "predicates")
-			     (:file "places")
-			     (:file "bangs")
-			     (:file "control-flow")
-			     (:file "compatibility")
-			     (:file "string")
-			     (:file "number")
-			     (:file "srfis")))))
+  :components
+  ((:module "src"
+    :components ((:module "internal"
+		  :components ((:file "package")
+			       (:file "common-lisp")
+			       (:file "core")))
+		 
+		 (:file "package")
+		 (:file "predicates")
+		 (:file "places")
+		 (:file "bangs")
+		 (:file "control-flow")
+		 (:file "compatibility")
+		 (:file "string")
+		 (:file "number")
+		 (:file "srfis")))))
