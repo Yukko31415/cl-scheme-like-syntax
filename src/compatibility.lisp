@@ -163,7 +163,7 @@
   (declare (string string))
   (the character (aref string index)))
 
-(defun (set@ string-ref) (char string index)
+(defun (setf string-ref) (char string index)
   (declare (character char))
   (declare (simple-string string))
   (set@ (aref string index) char))
@@ -179,7 +179,7 @@
   (declare (type (not string) array))
   (apply #'aref array subscripts))
 
-(defun (set@ array-ref) (object array &rest subscripts)
+(defun (setf array-ref) (object array &rest subscripts)
   (declare (array array))
   (set@ (apply #'aref array subscripts) object))
 
@@ -189,7 +189,7 @@
   (declare (integer index))
   (row-major-aref array index))
 
-(defun (set@ array-flat-ref) (object array index)
+(defun (setf array-flat-ref) (object array index)
   (declare (integer index))
   (set@ (row-major-aref array index) object))
 
@@ -205,7 +205,7 @@
   (declare (integer index))
   (aref vector index))
 
-(defun (set@ vector-ref) (object vector index)
+(defun (setf vector-ref) (object vector index)
   (declare (simple-vector vector))
   (declare (integer index))
   (set@ (aref vector index) object))
@@ -222,7 +222,7 @@
   (declare (integer index))
   (nth index list))
 
-(defun (set@ list-ref) (object list index)
+(defun (setf list-ref) (object list index)
   (declare (list list))
   (declare ((integer 0) index))
   (set@ (nth index list) object))
@@ -233,7 +233,7 @@
   (declare (integer index))
   (nthcdr index list))
 
-(defun (set@ list-tail) (object list index)
+(defun (setf list-tail) (object list index)
   (declare (list list))
   (declare ((integer 0) index))
   (set-cdr! (nthcdr (1- index) list) object))
@@ -247,7 +247,7 @@
   "hash-table-ref hash-table key &optional default => value, present?"
   (gethash key hash-table default))
 
-(defun (set@ hash-table-ref) (obj hash-table key &optional default)
+(defun (setf hash-table-ref) (obj hash-table key &optional default)
   (set@ (gethash key hash-table default) obj))
 
 
@@ -262,7 +262,7 @@
 
 (alias slot-ref slot-value)
 
-(defun (set@ slot-ref) (obj object slot-name)
+(defun (setf slot-ref) (obj object slot-name)
   (set@ (slot-value object slot-name) obj))
 
 (set@ (documentation 'slot-ref 'function)
