@@ -1,7 +1,4 @@
 
-(uiop:define-package #:cl-scheme-like-syntax.internal/common-lisp
-  (:use #:cl))
-
 
 (in-package #:cl-scheme-like-syntax.internal/common-lisp)
 
@@ -76,7 +73,8 @@
    t
    satisfies
    member
-   not and or values
+   not and or
+   values
    eql
    coerce
    deftype
@@ -172,7 +170,6 @@
 (unexport
  '(rotatef
    shiftf
-   setf
    psetf
    defsetf
    get-setf-expansion
@@ -247,7 +244,7 @@
    defgeneric
    defmethod
    find-class
-   next-method-p			;this is lical function
+   next-method-p			; this is local function
    call-method
    make-method
    call-next-method

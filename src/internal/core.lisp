@@ -1,6 +1,6 @@
 
 
-(in-package #:cl-scheme-like-syntax.internal)
+(in-package #:cl-scheme-like-syntax.internal/core)
 
 
 
@@ -34,16 +34,4 @@
 		     :collect from :into froms
 		     :finally (return `(,@aliases (values ',names ',froms))))))
 
-
-
-;;
-;; with-inline
-
-(defmacro with-inline (&rest definitions)
-  (let ((names (mapcar #'(lambda (definition) (nth 1 definition)) definitions)))
-    `(progn ,@definitions
-	    (declaim (inline ,@names))
-	    ',(mapcar #'(lambda (sym) (make-symbol (symbol-name sym))) names))))
-
-(define-indentation with-inline (&rest))
 
