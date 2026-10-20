@@ -11,7 +11,7 @@
 
 
 ;; `setq'は specil operator なので、エイリアスを登録することができない
-;; マクロとして登録することは可能だが、あまり行儀のいい方法ではないか？
+;; マクロとして登録することは可能だが、あまり行儀のいい方法ではないかも？
 
 (alias make-function-unbound! fmakunbound)
 
