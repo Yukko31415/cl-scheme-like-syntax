@@ -25,22 +25,20 @@
 ;;
 ;; string-trim, string-left-trim, string-right-trim
 
-(with-inline
+(defun string-trim (char-bag string)
+  "string-trim char-bag string => string"
+  (declare (string string))
+  (cl:string-trim char-bag string))
 
- (defun string-trim (char-bag string)
-   "string-trim char-bag string => string"
-   (declare (string string))
-   (cl:string-trim char-bag string))
+(defun string-right-trim (char-bag string)
+  "string-right-trim char-bag string => string"
+  (declare (string string))
+  (cl:string-right-trim char-bag string))
 
- (defun string-right-trim (char-bag string)
-   "string-right-trim char-bag string => string"
-   (declare (string string))
-   (cl:string-right-trim char-bag string))
-
- (defun string-left-trim (char-bag string)
-   "string-left-trim => char-bag string => string"
-   (declare (string string))
-   (cl:string-left-trim char-bag string)))
+(defun string-left-trim (char-bag string)
+  "string-left-trim => char-bag string => string"
+  (declare (string string))
+  (cl:string-left-trim char-bag string))
 
 (aliases (string*-trim       . cl:string-trim)
 	 (string*-right-trim . cl:string-right-trim)
@@ -59,22 +57,20 @@
 ;; string-upcase, string-downcase, string-capitalize
 
 
-(with-inline
+(defun string-upcase (string &key (start 0) (end nil))
+  "string-upcase string &key start end"
+  (declare (string string))
+  (cl:string-upcase string :start start :end end))
 
- (defun string-upcase (string &key (start 0) (end nil))
-   "string-upcase string &key start end"
-   (declare (string string))
-   (cl:string-upcase string :start start :end end))
+(defun string-downcase (string &key (start 0) (end nil))
+  "string-downcase string &key start end"
+  (declare (string string))
+  (cl:string-downcase string :start start :end end))
 
- (defun string-downcase (string &key (start 0) (end nil))
-   "string-downcase string &key start end"
-   (declare (string string))
-   (cl:string-downcase string :start start :end end))
-
- (defun string-capitalize (string &key (start 0) (end nil))
-   "string-capitalize string &key start end"
-   (declare (string string))
-   (cl:string-capitalize string :start start :end end)))
+(defun string-capitalize (string &key (start 0) (end nil))
+  "string-capitalize string &key start end"
+  (declare (string string))
+  (cl:string-capitalize string :start start :end end))
 
 (aliases (string*-upcase     . cl:string-upcase)
 	 (string*-downcase   . cl:string-downcase)
