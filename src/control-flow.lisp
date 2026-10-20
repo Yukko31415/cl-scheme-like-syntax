@@ -123,12 +123,12 @@
 ;;    otherwise-clause ::= ({otherwise | t | else} {{form}* | => receiver})
 
 
-(defun %make-case (clauses key &optional otherwise-clause?)
+(defun %make-case (clauses keyform &optional otherwise-clause?)
   (loop :for (keys . forms) :in clauses
-	:if (and otherwise-clause? (eql keys 'else))
+	:if (and otherwise-clause? (symbol? keys) (symbol=? keys 'else))
 	  :do (set@ keys 't)
-	:if (eql (car forms) '=>)
-	  :do (set@ forms (list `(funcall ,(second forms) ,key)))
+	:if (and (symbol? (car forms)) (symbol=? (car forms) '=>))
+	  :do (set@ forms (list `(funcall ,(second forms) ,keyform)))
 	:collect (cons keys forms)))
 
 
